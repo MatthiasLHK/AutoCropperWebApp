@@ -6,13 +6,11 @@ import NavigationContainer from "./component/navigation/NavigationContainer";
 import './App.css';
 import {
     HOME_PATH,
-    MAIN_PATH,
     ABOUT_PATH,
     SET_DATA_PATH,
     PROFILE_PATH
 } from "./utils/Constants";
 import Home from "./component/pages/Home";
-import Main from "./component/pages/Main";
 import About from "./component/pages/About";
 import SetData from "./component/pages/SetData";
 import Profile from "./component/pages/Profile";
