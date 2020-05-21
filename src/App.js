@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
