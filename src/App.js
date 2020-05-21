@@ -23,7 +23,6 @@ function App() {
          <NavigationContainer>
         <Switch>
             <Route path = {HOME_PATH} exact component = {Home} />
-            <Route path = {MAIN_PATH} exact component = {Main} />
             <Route path = {ABOUT_PATH} exact component = {About} />
             <Route path = {PROFILE_PATH} exact component = {Profile} />
             <Route path = {SET_DATA_PATH} exact component = {SetData} />
