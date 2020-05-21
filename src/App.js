@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
+import {Button} from "semantic-ui-react";
+import NavigationContainer from "./component/navigation/NavigationContainer";
 import './App.css';
+import {
+    HOME_PATH,
+    MAIN_PATH,
+    ABOUT_PATH,
+    SET_DATA_PATH,
+    PROFILE_PATH
+} from "./utils/Constants";
+import Home from "./component/pages/Home";
+import Main from "./component/pages/Main";
+import About from "./component/pages/About";
+import SetData from "./component/pages/SetData";
+import Profile from "./component/pages/Profile";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+        <Router>
+         <NavigationContainer>
+        <Switch>
+            <Route path = {HOME_PATH} exact component = {Home} />
+            <Route path = {MAIN_PATH} exact component = {Main} />
+            <Route path = {ABOUT_PATH} exact component = {About} />
+            <Route path = {PROFILE_PATH} exact component = {Profile} />
+            <Route path = {SET_DATA_PATH} exact component = {SetData} />
+        <Route>
+        <Redirect to = {HOME_PATH} />
+        </Route>
+        </Switch>
+        </NavigationContainer>
+        </Router>
+
     </div>
   );
 }
