@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> f6959362b1c390572fac1d23e9de34132e576fca
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
@@ -6,6 +10,10 @@ import NavigationContainer from "./component/navigation/NavigationContainer";
 import './App.css';
 import {
     HOME_PATH,
+<<<<<<< HEAD
+=======
+    MAIN_PATH,
+>>>>>>> f6959362b1c390572fac1d23e9de34132e576fca
     ABOUT_PATH,
     SET_DATA_PATH,
     PROFILE_PATH
@@ -37,4 +45,8 @@ function App() {
   );
 }
 
+<<<<<<< HEAD
 export default App;
+=======
+export default App;
+>>>>>>> f6959362b1c390572fac1d23e9de34132e576fca
