@@ -5,7 +5,7 @@ import HomeTab from "./HomeTab";
 import AboutTab from "./AboutTab";
 import SetDataTab from "./SetDataTab";
 import ProfileTab from "./ProfileTab";
-
+import LoginTab from "./LoginTab";
 
 function NavigationContainer({ children }) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
@@ -36,6 +36,7 @@ function NavigationContainer({ children }) {
         <AboutTab onTabClick={onTabClick} />
         <ProfileTab onTabClick={onTabClick} />
         <SetDataTab onTabClick={onTabClick} />
+        <LoginTab onTabClick={onTabClick} />
       </Sidebar>
 
       <Sidebar.Pusher dimmed={sidebarOpened}>

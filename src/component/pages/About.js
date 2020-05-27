@@ -4,7 +4,7 @@ function About() {
 
     return (
     <div>
-    <h1> about </h1>
+    <h1 style = {{marginTop: 100, color:'green', padding:80}}> about </h1>
     </div>
     )
 }

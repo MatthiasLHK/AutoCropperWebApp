@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import { Header, Image, Button, Message, Icon, Modal, Tab } from "semantic-ui-react";
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
-// import { ABOUT_PATH } from "../utils/Constants";
 import About from "./About";
 
 class Home extends React.Component {

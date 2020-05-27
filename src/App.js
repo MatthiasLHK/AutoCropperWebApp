@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> f6959362b1c390572fac1d23e9de34132e576fca
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
@@ -10,18 +6,16 @@ import NavigationContainer from "./component/navigation/NavigationContainer";
 import './App.css';
 import {
     HOME_PATH,
-<<<<<<< HEAD
-=======
-    MAIN_PATH,
->>>>>>> f6959362b1c390572fac1d23e9de34132e576fca
     ABOUT_PATH,
     SET_DATA_PATH,
-    PROFILE_PATH
+    PROFILE_PATH,
+    LOGIN_PATH
 } from "./utils/Constants";
 import Home from "./component/pages/Home";
 import About from "./component/pages/About";
 import SetData from "./component/pages/SetData";
 import Profile from "./component/pages/Profile";
+import Login from "./component/pages/Login";
 
 function App() {
   return (
@@ -34,8 +28,9 @@ function App() {
             <Route path = {ABOUT_PATH} exact component = {About} />
             <Route path = {PROFILE_PATH} exact component = {Profile} />
             <Route path = {SET_DATA_PATH} exact component = {SetData} />
+            <Route path = {LOGIN_PATH} exact component = {Login} />
         <Route>
-        <Redirect to = {HOME_PATH} />
+        <Redirect to = {ABOUT_PATH} />
         </Route>
         </Switch>
         </NavigationContainer>
@@ -45,8 +40,5 @@ function App() {
   );
 }
 
-<<<<<<< HEAD
 export default App;
-=======
-export default App;
->>>>>>> f6959362b1c390572fac1d23e9de34132e576fca
+
