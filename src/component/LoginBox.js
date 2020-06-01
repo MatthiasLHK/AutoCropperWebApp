@@ -13,7 +13,7 @@ class LoginBox extends React.Component {
   render() {
     return (
       <div className="inner-container">
-        <div className="header">
+        <div className="header" >
           Login
         </div>
         <div className="box">

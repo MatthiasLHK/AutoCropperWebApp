@@ -32,8 +32,9 @@ function NavigationContainer({ children }) {
           <Icon name="tree" />
           AutoCropper
         </Header>
-        <HomeTab onTabClick={onTabClick} />
+
         <AboutTab onTabClick={onTabClick} />
+        <HomeTab onTabClick={onTabClick} />
         <ProfileTab onTabClick={onTabClick} />
         <SetDataTab onTabClick={onTabClick} />
         <LoginTab onTabClick={onTabClick} />
