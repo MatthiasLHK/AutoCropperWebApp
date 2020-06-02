@@ -10,9 +10,10 @@ class LoginBox extends React.Component {
   }
 
 
-  submitLogin() {
-      return this.props.logIn();
-    }
+  submitLogin = () => {
+    this.props.toggleLogIn();
+  }
+
 
   render() {
     return (
