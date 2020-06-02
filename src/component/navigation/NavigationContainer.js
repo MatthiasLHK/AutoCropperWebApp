@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Sidebar, Menu, Header, Icon } from "semantic-ui-react";
+import { Sidebar, Menu, Header, Icon, Button } from "semantic-ui-react";
 import AboutTab from "./AboutTab";
 import SetDataTab from "./SetDataTab";
 import ProfileTab from "./ProfileTab";
 import WelcomeTab from "./WelcomeTab";
 
-function NavigationContainer({ children }) {
+function NavigationContainer(props) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
 
   const onTabClick = () => {
     setSidebarOpened(false);
+  };
+
+  const toggleLogOut = () => {
+    props.toggleLogOut();
   };
 
   return (
@@ -35,7 +39,11 @@ function NavigationContainer({ children }) {
         <AboutTab onTabClick={onTabClick} />
         <ProfileTab onTabClick={onTabClick} />
         <SetDataTab onTabClick={onTabClick} />
-        <WelcomeTab onTabClick={onTabClick} />
+
+        <Button negative
+            style = {{marginTop : 200, marginLeft: 80}}
+            onClick = { toggleLogOut }
+        > Log Out </Button>
 
       </Sidebar>
 
@@ -44,7 +52,7 @@ function NavigationContainer({ children }) {
           <Menu.Item onClick={() => setSidebarOpened(true)} icon="sidebar" />
 
         </Menu>
-        <div style={{ height: "100vh", overflow: "auto" }}>{children}</div>
+        <div style={{ height: "100vh", overflow: "auto" }}>{props.children}</div>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
   );

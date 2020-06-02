@@ -25,6 +25,7 @@ class App extends React.Component {
         }
 
         this.toggleLogIn = this.toggleLogIn.bind(this);
+        this.toggleLogOut = this.toggleLogOut.bind(this);
     }
 
 
@@ -32,14 +33,19 @@ class App extends React.Component {
         this.setState({loggedIn: true});
     }
 
+    toggleLogOut = () =>  {
+        this.setState({loggedIn: false});
+    }
+
     render() {
         return (
             <div className = "App">
             {!this.state.loggedIn
-                ? <Login toggleLogIn = { this.toggleLogIn } />
+                ?
+                <Login toggleLogIn = { this.toggleLogIn } />
                 :
                 <Router>
-                         <NavigationContainer>
+                         <NavigationContainer toggleLogOut = { this.toggleLogOut } >
                         <Switch>
                             <Route path = {ROOT_PATH} exact component = {Welcome} />
                             <Route path = {ABOUT_PATH} exact component = {About} />

@@ -49,8 +49,8 @@ class Login extends React.Component {
                      </div>
 
                 <div className = "box-container">
-                    {this.state.isLoginOpen && <LoginBox toggleLogIn = { this.props.toggleLogIn }/>}
-                    {this.state.isRegisterOpen && <RegisterBox/>}
+                    {this.state.isLoginOpen && <LoginBox toggleLogIn = { this.props.toggleLogIn } />}
+                    {this.state.isRegisterOpen && <RegisterBox toggleLogIn = { this.props.toggleLogIn } />}
 
                 </div>
             </div>

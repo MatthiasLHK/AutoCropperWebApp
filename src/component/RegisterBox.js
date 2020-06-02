@@ -9,8 +9,8 @@ class RegisterBox extends React.Component {
     this.state = {};
   }
 
-  submitRegister(e) {
-
+  submitRegister = () => {
+        this.props.toggleLogIn()
   }
 
   render() {
@@ -46,8 +46,7 @@ class RegisterBox extends React.Component {
           <button
             type="button"
             className="login-btn"
-            onClick={this
-            .submitRegister}>Register</button>
+            onClick={this.submitRegister}>Register</button>
         </div>
       </div>
     );
