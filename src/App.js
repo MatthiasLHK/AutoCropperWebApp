@@ -28,7 +28,8 @@ class App extends React.Component {
     }
 
 
-    toggleLogIn = () => {
+    toggleLogIn =
+        () => {
         this.setState({loggedIn: true});
     }
 
