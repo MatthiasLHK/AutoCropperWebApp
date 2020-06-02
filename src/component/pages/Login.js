@@ -27,6 +27,7 @@ class Login extends React.Component {
 
         return (
             <div className = "root-container">
+                <h1> Welcome to AutoCropper! </h1>
                 <div className="box-controller">
                        <div
                          className={"controller " + (this.state.isLoginOpen
