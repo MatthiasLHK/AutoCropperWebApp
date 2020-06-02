@@ -28,8 +28,8 @@ class App extends React.Component {
     }
 
 
-    toggleLogIn() {
-        return this.setState({loggedIn: true});
+    toggleLogIn = () => {
+        this.setState({loggedIn: true});
     }
 
     render() {
