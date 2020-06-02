@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-
+import SET_DATA_PATH from "../utils/Constants";
+import { Redirect } from "react-router-dom";
 
 class LoginBox extends React.Component {
 
@@ -8,7 +9,10 @@ class LoginBox extends React.Component {
     this.state = {};
   }
 
-  submitLogin(e) {}
+
+  submitLogin() {
+      return this.props.logIn();
+    }
 
   render() {
     return (
@@ -40,8 +44,7 @@ class LoginBox extends React.Component {
             type="button"
             className="login-btn"
             onClick={this
-            .submitLogin
-            .bind(this)}>Login</button>
+            .submitLogin}>Login</button>
         </div>
       </div>
     );

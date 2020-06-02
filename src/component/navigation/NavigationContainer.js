@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Sidebar, Menu, Header, Icon } from "semantic-ui-react";
-import HomeTab from "./HomeTab";
 import AboutTab from "./AboutTab";
 import SetDataTab from "./SetDataTab";
 import ProfileTab from "./ProfileTab";
-import LoginTab from "./LoginTab";
+import WelcomeTab from "./WelcomeTab";
 
 function NavigationContainer({ children }) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
@@ -34,10 +33,10 @@ function NavigationContainer({ children }) {
         </Header>
 
         <AboutTab onTabClick={onTabClick} />
-        <HomeTab onTabClick={onTabClick} />
         <ProfileTab onTabClick={onTabClick} />
         <SetDataTab onTabClick={onTabClick} />
-        <LoginTab onTabClick={onTabClick} />
+        <WelcomeTab onTabClick={onTabClick} />
+
       </Sidebar>
 
       <Sidebar.Pusher dimmed={sidebarOpened}>

@@ -1,4 +1,6 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+
 
 class RegisterBox extends React.Component {
 
@@ -7,7 +9,9 @@ class RegisterBox extends React.Component {
     this.state = {};
   }
 
-  submitRegister(e) {}
+  submitRegister(e) {
+
+  }
 
   render() {
     return (
@@ -43,8 +47,7 @@ class RegisterBox extends React.Component {
             type="button"
             className="login-btn"
             onClick={this
-            .submitRegister
-            .bind(this)}>Register</button>
+            .submitRegister}>Register</button>
         </div>
       </div>
     );

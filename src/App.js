@@ -1,43 +1,61 @@
-import React, {useState} from 'react';
+import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import {Button} from "semantic-ui-react";
 import NavigationContainer from "./component/navigation/NavigationContainer";
 import './App.css';
 import {
-    HOME_PATH,
     ABOUT_PATH,
     SET_DATA_PATH,
     PROFILE_PATH,
-    LOGIN_PATH
+    ROOT_PATH
 } from "./utils/Constants";
-import Home from "./component/pages/Home";
 import About from "./component/pages/About";
 import SetData from "./component/pages/SetData";
 import Profile from "./component/pages/Profile";
+import Welcome from "./component/pages/Welcome";
 import Login from "./component/pages/Login";
 
-function App() {
-  return (
-    <div className="App">
+class App extends React.Component {
 
-        <Router>
-         <NavigationContainer>
-        <Switch>
-            <Route path = {ABOUT_PATH} exact component = {About} />
-            <Route path = {HOME_PATH} exact component = {Home} />
-            <Route path = {PROFILE_PATH} exact component = {Profile} />
-            <Route path = {SET_DATA_PATH} exact component = {SetData} />
-            <Route path = {LOGIN_PATH} exact component = {Login} />
-        <Route>
-        <Redirect to = {ABOUT_PATH} />
-        </Route>
-        </Switch>
-        </NavigationContainer>
-        </Router>
+    constructor() {
+        super();
+        this.state = {
+            loggedIn: false
+        }
 
-    </div>
-  );
+        this.toggleLogIn = this.toggleLogIn.bind(this);
+    }
+
+
+    toggleLogIn() {
+        return this.setState({loggedIn: true});
+    }
+
+    render() {
+        return (
+            <div className = "App">
+            {!this.state.loggedIn
+                ? <Login toggleLogIn = { this.toggleLogIn } />
+                :
+                <Router>
+                         <NavigationContainer>
+                        <Switch>
+                            <Route path = {ROOT_PATH} exact component = {Welcome} />
+                            <Route path = {ABOUT_PATH} exact component = {About} />
+                            <Route path = {PROFILE_PATH} exact component = {Profile} />
+                            <Route path = {SET_DATA_PATH} exact component = {SetData} />
+
+                        <Route>
+                        <Redirect to = {ABOUT_PATH} />
+                        </Route>
+                        </Switch>
+                        </NavigationContainer>
+                        </Router>
+            }
+            </div>
+        );
+    }
 }
 
 export default App;

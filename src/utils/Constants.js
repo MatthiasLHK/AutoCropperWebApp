@@ -1,6 +1,4 @@
-export const HOME_PATH = "/";
-export const MAIN_PATH = "/main";
+export const ROOT_PATH = "/";
 export const ABOUT_PATH = "/about";
 export const SET_DATA_PATH = "/set_data";
 export const PROFILE_PATH = "/profile";
-export const LOGIN_PATH = "/Login";

@@ -1,5 +1,7 @@
 .App {
 background-image: linear-gradient(to right, #C5CAE9, #19494D);
+display: 'flex';
+flex-direction: 'row';
 }
 
 .App-header {
