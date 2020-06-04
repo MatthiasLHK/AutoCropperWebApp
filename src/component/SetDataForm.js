@@ -3,18 +3,46 @@ import {Button, Form, Icon, Input, Modal, Header} from "semantic-ui-react";
 
 class SetDataForm extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            modalOpen: false
+        }
+
+        this.handleOpen = this.handleOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleOpen = () => this.setState({ modalOpen: true })
+
+    handleClose = () => this.setState({ modalOpen: false })
 
     render() {
 
         const InputSuccess = () => (
-              <Modal trigger={<Button color= "secondary" style = {{ marginLeft:20 }}> Start Cropping! </Button>}>
-                  <Modal.Description>
-                    <Header style = {{color: 'green' , marginLeft: 10, marginTop: 5}}>Input Successful!</Header>
-                    <text style ={{ marginBotton: 20 }}>
-                      Head over to your profile to view the changes!
-                    </text>
-                  </Modal.Description>
-              </Modal> );
+              <Modal
+                      trigger={<Button
+
+                      color = 'secondary'
+                      style = {{marginLeft: 30}}
+                      onClick={this.handleOpen}
+
+                      > Start Cropping! </Button>}
+                      open={this.state.modalOpen}
+                      onClose={this.handleClose}
+                      basic
+                      size='small'
+                    >
+                      <Header icon='browser' content='Inputs Successfully Registered' />
+                      <Modal.Content>
+                        <h3>Head over to your profile to view the changes!</h3>
+                      </Modal.Content>
+                      <Modal.Actions>
+                        <Button color='green' onClick={this.handleClose} inverted>
+                          <Icon name='checkmark' /> Proceed
+                        </Button>
+                      </Modal.Actions>
+                    </Modal> );
 
         return (
             <div className = "SetDataForm">
@@ -42,7 +70,7 @@ class SetDataForm extends React.Component {
                  <label style = {{fontSize: 19, marginLeft: 10}}> Light Intensity </label>
                     <Icon name = "lightbulb outline" size = "big" style = {{marginLeft: 3}} />
                     <Input style = {{width: 135, fontSize: 12}}
-                                                    label={{ basic: true, content: '??'}}
+                                                    label={{ basic: true, content: 'cd'}}
                                                    labelPosition='right'
                                                    placeholder='Enter Light Intensity'
                                                  />
