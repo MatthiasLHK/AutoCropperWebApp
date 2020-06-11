@@ -50,6 +50,7 @@ flex-direction: 'row';
 }
 
 //Currently Selected Controller
+.selected-controller:hover,
 .selected-controller {
     transition: border 0.5s ease-out;
     border-bottom: 2px solid $blue_theme;
