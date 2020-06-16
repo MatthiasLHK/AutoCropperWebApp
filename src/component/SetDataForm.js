@@ -1,19 +1,39 @@
 import React from "react";
 import {Button, Form, Icon, Input, Modal, Header} from "semantic-ui-react";
+import axios from "axios";
 
 class SetDataForm extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            modalOpen: false
+            modalOpen: false,
+            temperature: 0,
+            water: 0,
+            light: 0,
+            humidity: 0
         }
 
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
 
-    handleOpen = () => this.setState({ modalOpen: true })
+    handleOpen = async (e) => {
+        e.preventDefault();
+        this.setState({
+            modalOpen: true
+            });
+
+        axios.post("/set_data", {
+            temperature: this.state.temperature,
+            water: this.state.water,
+            light: this.state.light,
+            humidity: this.state.humidity
+        })
+        .then(res => {
+            console.log(res)
+        })
+    }
 
     handleClose = () => this.setState({ modalOpen: false })
 
@@ -53,7 +73,8 @@ class SetDataForm extends React.Component {
                     <Input style = {{width: 130, fontSize: 12}}
                                 label={{ basic: true, content: '°C'}}
                                labelPosition='right'
-                               placeholder='Enter Temperature'
+                               placeholder= 'Enter temperature'
+                               onChange = {e => this.setState({temperature: e.target.value})}
                              />
 
                     </Form.Field>
@@ -63,7 +84,8 @@ class SetDataForm extends React.Component {
                     <Input style = {{width: 130, fontSize: 12}}
                                                     label={{ basic: true, content: 'ml'}}
                                                    labelPosition='right'
-                                                   placeholder='Enter Water Content'
+                                                   placeholder= "Enter water content"
+                                                   onChange = {e => this.setState({water: e.target.value})}
                                                  />
                     </Form.Field>
                 <Form.Field>
@@ -73,6 +95,7 @@ class SetDataForm extends React.Component {
                                                     label={{ basic: true, content: 'cd'}}
                                                    labelPosition='right'
                                                    placeholder='Enter Light Intensity'
+                                                   onChange = {e => this.setState({light: e.target.value})}
                                                  />
                     </Form.Field>
                  <Form.Field>
@@ -82,6 +105,7 @@ class SetDataForm extends React.Component {
                                                     label={{ basic: true, content: 'g'}}
                                                    labelPosition='right'
                                                    placeholder='Enter Fertiliser Content'
+                                                   onChange = {e => this.setState({humidity: e.target.value})}
                                                  />
                     </Form.Field>
 
