@@ -11,11 +11,10 @@ class Profile extends React.Component {
     }
 
     componentDidMount = () => {
-        axios.get("/profile").then(response => {
+        axios.get("/name").then(response => {
             this.setState({
                 testing: response.data.password
             });
-
         });
     };
 
@@ -23,8 +22,8 @@ class Profile extends React.Component {
 
         return (
             <div style = {{marginTop: 50}}>
+             <test />
              <h1> {this.state.testing} </h1>
-
             </div>
         );
     }

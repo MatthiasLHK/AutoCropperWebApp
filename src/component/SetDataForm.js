@@ -99,12 +99,12 @@ class SetDataForm extends React.Component {
                                                  />
                     </Form.Field>
                  <Form.Field>
-                    <label style = {{fontSize: 18, marginLeft: 10}}> Fertiliser Content </label>
-                    <Icon name = "leaf" size= "big" style = {{marginLeft: 3}} />
+                    <label style = {{fontSize: 18, marginLeft: 10}}> Humidity </label>
+                    <Icon name = "sun" size= "big" style = {{marginLeft: 3}} />
                     <Input style = {{width: 138, fontSize: 11}}
-                                                    label={{ basic: true, content: 'g'}}
+                                                    label={{ basic: true, content: '??'}}
                                                    labelPosition='right'
-                                                   placeholder='Enter Fertiliser Content'
+                                                   placeholder='Enter Humidity'
                                                    onChange = {e => this.setState({humidity: e.target.value})}
                                                  />
                     </Form.Field>

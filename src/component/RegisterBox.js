@@ -1,16 +1,29 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-
+import axios from "axios";
 
 class RegisterBox extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+        username: '',
+        password: '',
+        email: ''
+    };
   }
 
-  submitRegister = () => {
-        this.props.toggleLogIn()
+  submitRegister = async (e) => {
+        e.preventDefault();
+        this.props.toggleLogIn();
+        axios.post("/login", {
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email
+        })
+                .then(res => {
+                    console.log(res)
+                })
   }
 
   render() {
@@ -27,12 +40,16 @@ class RegisterBox extends React.Component {
               type="text"
               name="username"
               className="login-input"
-              placeholder="Username"/>
+              placeholder="Username"
+              onChange = {e => this.setState({username: e.target.value})}
+              />
           </div>
 
           <div className="input-group">
             <label htmlFor="email">Email</label>
-            <input type="text" name="email" className="login-input" placeholder="Email"/>
+            <input type="text" name="email" className="login-input" placeholder="Email"
+                onChange = {e => this.setState({email: e.target.value})}
+                />
           </div>
 
           <div className="input-group">
@@ -41,7 +58,9 @@ class RegisterBox extends React.Component {
               type="password"
               name="password"
               className="login-input"
-              placeholder="Password"/>
+              placeholder="Password"
+              onChange = {e => this.setState({password: e.target.value})}
+              />
           </div>
           <button
             type="button"
