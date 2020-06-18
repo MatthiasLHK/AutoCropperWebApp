@@ -2,7 +2,7 @@
   "name": "autocropper_frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "https://master.d24hy8pmwkeeyf.amplifyapp.com/index.html",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
