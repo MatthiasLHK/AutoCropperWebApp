@@ -8,13 +8,17 @@ import {
     ABOUT_PATH,
     SET_DATA_PATH,
     PROFILE_PATH,
-    ROOT_PATH
+    ROOT_PATH,
+    DEVICES_PATH,
+    BROWSE_PATH
 } from "./utils/Constants";
 import About from "./component/pages/About";
 import SetData from "./component/pages/SetData";
 import Profile from "./component/pages/Profile";
 import Welcome from "./component/pages/Welcome";
 import Login from "./component/pages/Login";
+import Devices from "./component/pages/Devices";
+import Browse from "./component/pages/Browse";
 
 class App extends React.Component {
 
@@ -49,8 +53,10 @@ class App extends React.Component {
                         <Switch>
                             <Route path = {ROOT_PATH} exact component = {Welcome} />
                             <Route path = {ABOUT_PATH} exact component = {About} />
+                            <Route path = {BROWSE_PATH} exact component = {Browse} />
                             <Route path = {PROFILE_PATH} exact component = {Profile} />
                             <Route path = {SET_DATA_PATH} exact component = {SetData} />
+                            <Route path = {DEVICES_PATH} exact component = {Devices} />
 
                         <Route>
                         <Redirect to = {ABOUT_PATH} />

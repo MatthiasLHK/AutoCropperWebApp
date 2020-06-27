@@ -9,6 +9,7 @@ function SetDataTab(props) {
       as={Link}
       to={SET_DATA_PATH}
       name={SET_DATA_PATH}
+      icon = "inbox"
       active={window.location.pathname === SET_DATA_PATH}
       content="Set Data"
       onClick={props.onTabClick}

@@ -113,7 +113,7 @@ class SetDataForm extends React.Component {
             </Form>
             </div>
 
-        )
+        );
     }
 }
 

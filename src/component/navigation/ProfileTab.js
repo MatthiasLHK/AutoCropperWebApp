@@ -9,6 +9,7 @@ function ProfileTab(props) {
       as={Link}
       to={PROFILE_PATH}
       name={PROFILE_PATH}
+      icon = "user secret"
       active={window.location.pathname === PROFILE_PATH}
       content= "Profile"
       onClick={props.onTabClick}

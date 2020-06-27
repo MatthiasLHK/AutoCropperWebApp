@@ -9,6 +9,7 @@ function AboutTab(props) {
       as={Link}
       to={ABOUT_PATH}
       name={ABOUT_PATH}
+      icon = "address book"
       active={window.location.pathname === ABOUT_PATH}
       content="About"
       onClick={props.onTabClick}

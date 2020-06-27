@@ -5,6 +5,8 @@ import AboutTab from "./AboutTab";
 import SetDataTab from "./SetDataTab";
 import ProfileTab from "./ProfileTab";
 import WelcomeTab from "./WelcomeTab";
+import DevicesTab from "./DevicesTab";
+import BrowseTab from "./BrowseTab";
 
 function NavigationContainer(props) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
@@ -36,9 +38,12 @@ function NavigationContainer(props) {
           AutoCropper
         </Header>
 
-        <AboutTab onTabClick={onTabClick} />
+        <WelcomeTab onTabClick={onTabClick} />
+        <AboutTab onTabClick={onTabClick}/>
         <ProfileTab onTabClick={onTabClick} />
+        <BrowseTab onTabClick = {onTabClick} />
         <SetDataTab onTabClick={onTabClick} />
+        <DevicesTab onTabClick = {onTabClick} />
 
         <Button negative
             style = {{marginTop : 200, marginLeft: 80}}

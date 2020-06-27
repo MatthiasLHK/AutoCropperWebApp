@@ -9,8 +9,9 @@ function WelcomeTab(props) {
       as={Link}
       to={ROOT_PATH}
       name={ROOT_PATH}
+      icon = "home"
       active={window.location.pathname === ROOT_PATH}
-      content="Welcome"
+      content="Home"
       onClick={props.onTabClick}
     />
   );
