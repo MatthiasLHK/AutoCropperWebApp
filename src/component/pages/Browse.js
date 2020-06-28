@@ -1,5 +1,6 @@
 import React from "react";
-import { Image } from "semantic-ui-react";
+import { Image, Button, Input, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class Browse extends React.Component {
 
@@ -14,7 +15,16 @@ class Browse extends React.Component {
         return (
 
             <div style = {{ marginTop: 60 }}>
-                test
+                <Input type = 'text' placeholder = "Search Users..." action>
+                    <input />
+                    <Button color= "primary" icon>
+                        <Icon name = "search" />
+                    </Button>
+                </Input>
+                <div class = "ui divider" />
+                <Link to = "/about">
+                    <Button> test </Button>
+                </Link>
             </div>
 
 

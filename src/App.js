@@ -59,7 +59,7 @@ class App extends React.Component {
                             <Route path = {DEVICES_PATH} exact component = {Devices} />
 
                         <Route>
-                        <Redirect to = {ABOUT_PATH} />
+                        <Redirect to = {ROOT_PATH} />
                         </Route>
                         </Switch>
                         </NavigationContainer>
