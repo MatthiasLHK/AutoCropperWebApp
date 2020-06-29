@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import { Message, Label } from "semantic-ui-react";
 
 class RegisterBox extends React.Component {
 
@@ -9,26 +10,43 @@ class RegisterBox extends React.Component {
     this.state = {
         username: '',
         password: '',
-        email: ''
+        email: '',
+        register: ''
     };
   }
 
   submitRegister = async (e) => {
         e.preventDefault();
-        this.props.toggleLogIn();
-        axios.post("/login", {
+        axios.post("/register", {
             username: this.state.username,
             password: this.state.password,
             email: this.state.email
         })
-                .then(res => {
-                    console.log(res)
-                })
+        .then(res => {
+            if (res.data.status === "Success") {
+                this.props.successfulRegister();
+            } else {
+                this.setState({
+                    username: '',
+                    password: '',
+                    email: '',
+                    register: 'failed'
+                });
+
+                console.log(res.data)
+            }
+        })
   }
+
+
 
   render() {
     return (
+
       <div className="inner-container">
+
+
+
         <div className="header">
           Register
         </div>
@@ -41,13 +59,23 @@ class RegisterBox extends React.Component {
               name="username"
               className="login-input"
               placeholder="Username"
+              value = {this.state.username}
               onChange = {e => this.setState({username: e.target.value})}
               />
           </div>
-
+            {this.state.register === "failed"
+            ?
+            <div>
+            <Label basic color = "red" pointing>
+            Username Taken
+            </Label>
+            </div>
+            :
+            <div> </div>
+            }
           <div className="input-group">
             <label htmlFor="email">Email</label>
-            <input type="text" name="email" className="login-input" placeholder="Email"
+            <input type="text" name="email" className="login-input" placeholder="Email" value = {this.state.email}
                 onChange = {e => this.setState({email: e.target.value})}
                 />
           </div>
@@ -60,6 +88,7 @@ class RegisterBox extends React.Component {
               className="login-input"
               placeholder="Password"
               onChange = {e => this.setState({password: e.target.value})}
+              value = {this.state.password}
               />
           </div>
           <button

@@ -51,9 +51,9 @@ class App extends React.Component {
                 <Router>
                          <NavigationContainer toggleLogOut = { this.toggleLogOut } >
                         <Switch>
-                            <Route path = {ROOT_PATH} exact component = {Welcome} />
-                            <Route path = {ABOUT_PATH} exact component = {About} />
-                            <Route path = {BROWSE_PATH} exact component = {Browse} />
+                            <Route path = "/" exact component = {Welcome} />
+                            <Route path = "/about" exact component = {About} />
+                            <Route path = "/browse" exact component = {Browse} />
                             <Route path = {PROFILE_PATH} exact component = {Profile} />
                             <Route path = {SET_DATA_PATH} exact component = {SetData} />
                             <Route path = {DEVICES_PATH} exact component = {Devices} />

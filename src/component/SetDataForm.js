@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, Icon, Input, Modal, Header} from "semantic-ui-react";
+import { Button, Form, Icon, Input, Modal, Header, Grid, Message, Segment, Step } from "semantic-ui-react";
 import axios from "axios";
 
 class SetDataForm extends React.Component {
@@ -11,7 +11,8 @@ class SetDataForm extends React.Component {
             temperature: 0,
             water: 0,
             light: 0,
-            humidity: 0
+            humidity: 0,
+            plant: ''
         }
 
         this.handleOpen = this.handleOpen.bind(this);
@@ -44,7 +45,7 @@ class SetDataForm extends React.Component {
                       trigger={<Button
 
                       color = 'secondary'
-                      style = {{marginLeft: 30}}
+                      style = {{marginLeft: 60}}
                       onClick={this.handleOpen}
 
                       > Start Cropping! </Button>}
@@ -66,53 +67,110 @@ class SetDataForm extends React.Component {
 
         return (
             <div className = "SetDataForm">
+            <Grid columns = {2} divided >
+            <Grid.Column>
+
+            <Message info compact style = {{ marginTop: 70, marginLeft: 30}}>
+            <Message.Header> Connect to your AutoCropper Device! </Message.Header>
+            <p style = {{ marginLeft: 30 }}> Input the desired conditions below! </p>
+            </Message>
+
             <Form>
                 <Form.Field>
-                    <label style ={{marginTop: 100, marginLeft: 10, fontSize: 21}}> Temperature </label>
-                    <Icon name = "thermometer" size= "big" style = {{marginLeft: 3}}/>
+                    <label style ={{marginTop: 10, marginLeft: 40, fontSize: 21}}> Plant </label>
+                    <Icon name = "leaf" size= "big" style = {{marginLeft: 33}}/>
+                    <Input style = {{width: 130, fontSize: 12}}
+                        placeholder= 'Enter Plant Name'
+                        onChange = {e => this.setState({plant: e.target.value})}
+                    />
+                </Form.Field>
+
+                <Form.Field>
+                    <label style ={{marginTop: 10, marginLeft: 40, fontSize: 21}}> Temperature </label>
+                    <Icon name = "thermometer" size= "big" style = {{marginLeft: 33}}/>
                     <Input style = {{width: 130, fontSize: 12}}
                                 label={{ basic: true, content: '°C'}}
                                labelPosition='right'
                                placeholder= 'Enter temperature'
                                onChange = {e => this.setState({temperature: e.target.value})}
                              />
+                    </Form.Field>
 
-                    </Form.Field>
                 <Form.Field>
-                    <label style = {{fontSize: 19, marginLeft: 10}}> Water Content </label>
-                    <Icon name = "tint" size= "big" style = {{marginLeft: 3}} />
-                    <Input style = {{width: 130, fontSize: 12}}
-                                                    label={{ basic: true, content: 'ml'}}
-                                                   labelPosition='right'
-                                                   placeholder= "Enter water content"
-                                                   onChange = {e => this.setState({water: e.target.value})}
-                                                 />
-                    </Form.Field>
+                    <label style = {{fontSize: 19, marginLeft: 40}}> Water Content </label>
+                    <Icon name = "tint" size= "big" style = {{marginLeft: 33}} />
+                    <Input
+                        style = {{width: 130, fontSize: 12}}
+                        label={{ basic: true, content: 'ml'}}
+                        labelPosition='right'
+                        placeholder= "Enter water content"
+                        onChange = {e => this.setState({water: e.target.value})}
+                    />
+                </Form.Field>
+
                 <Form.Field>
-                 <label style = {{fontSize: 19, marginLeft: 10}}> Light Intensity </label>
-                    <Icon name = "lightbulb outline" size = "big" style = {{marginLeft: 3}} />
-                    <Input style = {{width: 135, fontSize: 12}}
-                                                    label={{ basic: true, content: 'cd'}}
-                                                   labelPosition='right'
-                                                   placeholder='Enter Light Intensity'
-                                                   onChange = {e => this.setState({light: e.target.value})}
-                                                 />
-                    </Form.Field>
+                    <label style = {{ fontSize: 19, marginLeft: 40 }}> Light Intensity </label>
+                    <Icon name = "lightbulb outline" size = "big" style = {{marginLeft: 33}} />
+                    <Input
+                        style = {{width: 135, fontSize: 12}}
+                        label={{ basic: true, content: 'cd'}}
+                        labelPosition='right'
+                        placeholder='Enter Light Intensity'
+                        onChange = {e => this.setState({light: e.target.value})}
+                    />
+                 </Form.Field>
+
                  <Form.Field>
-                    <label style = {{fontSize: 18, marginLeft: 10}}> Humidity </label>
-                    <Icon name = "sun" size= "big" style = {{marginLeft: 3}} />
-                    <Input style = {{width: 138, fontSize: 11}}
-                                                    label={{ basic: true, content: '??'}}
-                                                   labelPosition='right'
-                                                   placeholder='Enter Humidity'
-                                                   onChange = {e => this.setState({humidity: e.target.value})}
-                                                 />
-                    </Form.Field>
+                    <label style = {{fontSize: 18, marginLeft: 40}}> Humidity </label>
+                    <Icon name = "sun" size= "big" style = {{marginLeft: 33}} />
+                    <Input
+                        style = {{width: 138, fontSize: 11}}
+                        label={{ basic: true, content: '??'}}
+                        labelPosition='right'
+                        placeholder='Enter Humidity'
+                        onChange = {e => this.setState({humidity: e.target.value})}
+                        />
+                 </Form.Field>
 
                 <InputSuccess />
             </Form>
-            </div>
+            </Grid.Column>
 
+            <Grid.Column style = {{ marginTop: 70 }}>
+                <Message compact warning style = {{ marginLeft: 30 }}>
+                <Message.Header> How to use the AutoCropper Device? </Message.Header>
+                <p style = {{ marginLeft: 45 }}> Follow the instructions below! </p>
+                </Message>
+
+                <Step.Group vertical >
+                    <Step>
+                    <Icon name = "edit outline" />
+                    <Step.Content>
+                        <Step.Title> Plant </Step.Title>
+                        <Step.Description> Enter the name of your crop </Step.Description>
+                    </Step.Content>
+                    </Step>
+
+                    <Step>
+                    <Icon name = "table" />
+                    <Step.Content>
+                        <Step.Title> Environmental Conditions </Step.Title>
+                        <Step.Description> Enter the conditions desired </Step.Description>
+                    </Step.Content>
+                    </Step>
+
+                    <Step>
+                    <Icon name = "download" />
+                    <Step.Content>
+                        <Step.Title> Submit Conditions </Step.Title>
+                        <Step.Description> View the status of the device from your settings </Step.Description>
+                    </Step.Content>
+                    </Step>
+                </Step.Group>
+            </Grid.Column>
+
+            </Grid>
+            </div>
         );
     }
 }

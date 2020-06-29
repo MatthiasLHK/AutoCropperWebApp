@@ -8,11 +8,13 @@ class Login extends React.Component {
         super(props);
         this.state = {
             isLoginOpen: true,
-            isRegisterOpen: false
+            isRegisterOpen: false,
+            successfulRegister: false
         }
 
         this.showLoginBox = this.showLoginBox.bind(this);
         this.showRegisterBox = this.showRegisterBox.bind(this);
+        this.successfulRegister = this.successfulRegister.bind(this);
     };
 
     showLoginBox() {
@@ -21,6 +23,10 @@ class Login extends React.Component {
 
     showRegisterBox() {
         this.setState({isRegisterOpen: true, isLoginOpen: false});
+    }
+
+    successfulRegister() {
+        this.setState({isLoginOpen: true, isRegisterOpen: false, successfulRegister: true})
     }
 
     render() {
@@ -50,8 +56,18 @@ class Login extends React.Component {
                      </div>
 
                 <div className = "box-container">
-                    {this.state.isLoginOpen && <LoginBox toggleLogIn = { this.props.toggleLogIn } />}
-                    {this.state.isRegisterOpen && <RegisterBox toggleLogIn = { this.props.toggleLogIn } />}
+                    {this.state.isLoginOpen &&
+                    <LoginBox
+                    toggleLogIn = { this.props.toggleLogIn }
+                    successfulRegister = {this.state.successfulRegister}
+                    />}
+
+                    {this.state.isRegisterOpen &&
+                    <RegisterBox
+                    toggleLogIn = { this.props.toggleLogIn }
+                    successfulRegister = { this.successfulRegister }
+                    showLoginBox = { this.showLoginBox }
+                    />}
 
                 </div>
             </div>

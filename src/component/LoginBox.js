@@ -1,19 +1,41 @@
 import React, {Component} from "react";
 import SET_DATA_PATH from "../utils/Constants";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
+import { Button, Label, Message } from "semantic-ui-react";
 
 class LoginBox extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+        username: '',
+        password: '',
+        login: ''
+    };
   }
 
 
   submitLogin = (e) => {
     e.preventDefault();
-    this.props.toggleLogIn();
-  }
+    this.props.toggleLogIn(); //remove later
+    axios.post('/login-Auth', {
+        username: this.state.username,
+        password: this.state.password
+    })
+    .then(res => {
+        if (res.data.status === "Success") {
+            this.props.toggleLogIn();
+        } else {
+            this.setState({
+                username: '',
+                password: '',
+                login: 'failed'
+            });
+            console.log(res);
+        }
+        })
+    }
 
 
   render() {
@@ -22,6 +44,17 @@ class LoginBox extends React.Component {
         <div className="header" >
           Login
         </div>
+        {this.props.successfulRegister
+            ?
+            <div style = {{ marginLeft: 27 }}>
+                <Button color = "green" >
+                    Successfully Registered!
+                </Button>
+            </div>
+            :
+            <div></div>
+        }
+
         <div className="box">
 
           <div className="input-group">
@@ -30,7 +63,11 @@ class LoginBox extends React.Component {
               type="text"
               name="username"
               className="login-input"
-              placeholder="Username"/>
+              placeholder="Username"
+              value = {this.state.username}
+              onChange = {e => this.setState({username:e.target.value})}
+              />
+
           </div>
 
           <div className="input-group">
@@ -39,7 +76,20 @@ class LoginBox extends React.Component {
               type="password"
               name="password"
               className="login-input"
-              placeholder="Password"/>
+              placeholder="Password"
+              value = {this.state.password}
+              onChange = {e => this.setState({password: e.target.value})}
+              />
+            { this.state.login === "failed"
+            ?
+            <Label basic color = "red" pointing>
+                Incorrect Username/Password. Please Try Again!
+            </Label>
+            :
+            <div></div>
+            }
+
+
           </div>
 
           <button
