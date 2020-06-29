@@ -11,32 +11,31 @@ class LoginBox extends React.Component {
     this.state = {
         username: '',
         password: '',
-        login: ''
+        login: '',
+        id: 0
     };
   }
 
 
   submitLogin = (e) => {
     e.preventDefault();
-    this.props.toggleLogIn(); //remove later
     axios.post('/login-Auth', {
         username: this.state.username,
         password: this.state.password
     })
     .then(res => {
         if (res.data.status === "Success") {
-            this.props.toggleLogIn();
+            this.props.toggleLogIn(res.data.user_id.id);
         } else {
             this.setState({
                 username: '',
                 password: '',
                 login: 'failed'
             });
-            console.log(res);
+
         }
         })
     }
-
 
   render() {
     return (

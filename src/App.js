@@ -25,7 +25,8 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            loggedIn: false
+            loggedIn: false,
+            user_id: 0
         }
 
         this.toggleLogIn = this.toggleLogIn.bind(this);
@@ -33,8 +34,8 @@ class App extends React.Component {
     }
 
 
-    toggleLogIn = () =>  {
-        this.setState({loggedIn: true});
+    toggleLogIn = (data) =>  {
+        this.setState({loggedIn: true, user_id: data});
     }
 
     toggleLogOut = () =>  {
