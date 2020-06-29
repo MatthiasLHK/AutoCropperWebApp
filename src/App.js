@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Redirect, Link} from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import {Button} from "semantic-ui-react";
 import NavigationContainer from "./component/navigation/NavigationContainer";
@@ -10,7 +10,8 @@ import {
     PROFILE_PATH,
     ROOT_PATH,
     DEVICES_PATH,
-    BROWSE_PATH
+    BROWSE_PATH,
+    HOME_PATH
 } from "./utils/Constants";
 import About from "./component/pages/About";
 import SetData from "./component/pages/SetData";
@@ -50,9 +51,14 @@ class App extends React.Component {
                 <Login toggleLogIn = { this.toggleLogIn } />
                 :
                 <Router>
-                         <NavigationContainer toggleLogOut = { this.toggleLogOut } >
+                        <NavigationContainer toggleLogOut = { this.toggleLogOut } >
+                        <ul>
+                        <li>
+                        <Link to = "/home/1"> home </Link>
+                        </li>
+                        </ul>
                         <Switch>
-                            <Route path = "/" exact component = {Welcome} />
+                            <Route path = "/home" exact component = {Welcome} />
                             <Route path = "/about" exact component = {About} />
                             <Route path = "/browse" exact component = {Browse} />
                             <Route path = {PROFILE_PATH} exact component = {Profile} />
@@ -60,7 +66,7 @@ class App extends React.Component {
                             <Route path = {DEVICES_PATH} exact component = {Devices} />
 
                         <Route>
-                        <Redirect to = {ROOT_PATH} />
+                        <Redirect to = {HOME_PATH} />
                         </Route>
                         </Switch>
                         </NavigationContainer>

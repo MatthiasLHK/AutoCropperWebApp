@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
-import { ROOT_PATH } from "../../utils/Constants";
+import { HOME_PATH } from "../../utils/Constants";
 
 function WelcomeTab(props) {
   return (
     <Menu.Item
       as={Link}
-      to={ROOT_PATH}
-      name={ROOT_PATH}
+      to={HOME_PATH}
+      name={HOME_PATH}
       icon = "home"
-      active={window.location.pathname === ROOT_PATH}
+      active={window.location.pathname === HOME_PATH}
       content="Home"
       onClick={props.onTabClick}
     />
