@@ -3,14 +3,14 @@ import { Icon, Label, Image, Card, Button } from "semantic-ui-react";
 
 class Devices extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-
         }
     }
 
     render() {
+        const id = this.props.match.params.id;
         return (
         <div style = {{ marginTop: 60 }}>
             <Card.Group>
@@ -49,8 +49,8 @@ class Devices extends React.Component {
                         </Card.Description>
                     </Card.Content>
                     <Card.Content extra>
-                        <Button color = "secondary"> Active </Button>
-                        <Button color = "primary"> Edit Settings </Button>
+                        <Button color = "green"> Active </Button>
+                        <Button color = "secondary"> Edit Settings </Button>
                     </Card.Content>
                 </Card>
             </Card.Group>

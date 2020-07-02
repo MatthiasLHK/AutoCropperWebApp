@@ -24,6 +24,7 @@ class RegisterBox extends React.Component {
         })
         .then(res => {
             if (res.data.status === "Success") {
+                console.log(res);
                 this.props.successfulRegister();
             } else {
                 this.setState({

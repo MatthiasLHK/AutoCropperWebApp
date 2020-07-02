@@ -4,15 +4,16 @@ import axios from "axios";
 
 class SetDataForm extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             modalOpen: false,
-            temperature: 0,
-            water: 0,
-            light: 0,
-            humidity: 0,
-            plant: ''
+            temperature: '',
+            water: '',
+            light: '',
+            humidity: '',
+            plant: '',
+            user_id: ''
         }
 
         this.handleOpen = this.handleOpen.bind(this);
@@ -21,19 +22,25 @@ class SetDataForm extends React.Component {
 
     handleOpen = async (e) => {
         e.preventDefault();
+        console.log("success");
         this.setState({
-            modalOpen: true
-            });
+            modalOpen: true,
+            temperature: '',
+            water: '',
+            light: '',
+            humidity: '',
+            plant: '',
+        });
 
-        axios.post("/set_data", {
+        axios.post("/settings-p", {
             temperature: this.state.temperature,
             water: this.state.water,
             light: this.state.light,
-            humidity: this.state.humidity
+            humidity: this.state.humidity,
+            user_id: this.props.user_id,
+            name: this.state.plant
         })
-        .then(res => {
-            console.log(res)
-        })
+        .then(res => { console.log(res) })
     }
 
     handleClose = () => this.setState({ modalOpen: false })
@@ -81,6 +88,7 @@ class SetDataForm extends React.Component {
                     <Icon name = "leaf" size= "big" style = {{marginLeft: 33}}/>
                     <Input style = {{width: 130, fontSize: 12}}
                         placeholder= 'Enter Plant Name'
+                        value = {this.state.plant}
                         onChange = {e => this.setState({plant: e.target.value})}
                     />
                 </Form.Field>
@@ -92,6 +100,7 @@ class SetDataForm extends React.Component {
                                 label={{ basic: true, content: '°C'}}
                                labelPosition='right'
                                placeholder= 'Enter temperature'
+                               value = {this.state.temperature}
                                onChange = {e => this.setState({temperature: e.target.value})}
                              />
                     </Form.Field>
@@ -104,6 +113,7 @@ class SetDataForm extends React.Component {
                         label={{ basic: true, content: 'ml'}}
                         labelPosition='right'
                         placeholder= "Enter water content"
+                        value = {this.state.water}
                         onChange = {e => this.setState({water: e.target.value})}
                     />
                 </Form.Field>
@@ -116,6 +126,7 @@ class SetDataForm extends React.Component {
                         label={{ basic: true, content: 'cd'}}
                         labelPosition='right'
                         placeholder='Enter Light Intensity'
+                        value = {this.state.light}
                         onChange = {e => this.setState({light: e.target.value})}
                     />
                  </Form.Field>
@@ -128,6 +139,7 @@ class SetDataForm extends React.Component {
                         label={{ basic: true, content: '??'}}
                         labelPosition='right'
                         placeholder='Enter Humidity'
+                        value = {this.state.humidity}
                         onChange = {e => this.setState({humidity: e.target.value})}
                         />
                  </Form.Field>
@@ -137,12 +149,12 @@ class SetDataForm extends React.Component {
             </Grid.Column>
 
             <Grid.Column style = {{ marginTop: 70 }}>
-                <Message compact warning style = {{ marginLeft: 30 }}>
+                <Message compact warning style = {{ marginLeft: 80 }}>
                 <Message.Header> How to use the AutoCropper Device? </Message.Header>
                 <p style = {{ marginLeft: 45 }}> Follow the instructions below! </p>
                 </Message>
 
-                <Step.Group vertical >
+                <Step.Group vertical style = {{ marginLeft: 50 }}>
                     <Step>
                     <Icon name = "edit outline" />
                     <Step.Content>

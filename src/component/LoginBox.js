@@ -28,6 +28,7 @@ class LoginBox extends React.Component {
     })
     .then(res => {
         if (res.data.status === "Success") {
+            console.log(res.data.user_id.id);
             this.props.toggleLogIn(res.data.user_id.id);
         } else {
             this.setState({

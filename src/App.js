@@ -51,16 +51,12 @@ class App extends React.Component {
                 <Login toggleLogIn = { this.toggleLogIn } />
                 :
                 <Router>
-                        <NavigationContainer toggleLogOut = { this.toggleLogOut } >
-                        <ul>
-                        <li>
-                        <Link to = "/home/1"> home </Link>
-                        </li>
-                        </ul>
+                        <NavigationContainer toggleLogOut = { this.toggleLogOut } user_id = {this.state.user_id} >
+
                         <Switch>
-                            <Route path = "/home" exact component = {Welcome} />
-                            <Route path = "/about" exact component = {About} />
-                            <Route path = "/browse" exact component = {Browse} />
+                            <Route path = {HOME_PATH} exact component = {Welcome} />
+                            <Route path = {ABOUT_PATH} exact component = {About} />
+                            <Route path = {BROWSE_PATH} exact component = {Browse} />
                             <Route path = {PROFILE_PATH} exact component = {Profile} />
                             <Route path = {SET_DATA_PATH} exact component = {SetData} />
                             <Route path = {DEVICES_PATH} exact component = {Devices} />

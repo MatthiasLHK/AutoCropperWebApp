@@ -3,18 +3,28 @@ import { Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import { ABOUT_PATH } from "../../utils/Constants";
 
-function AboutTab(props) {
-  return (
-    <Menu.Item
-      as={Link}
-      to={ABOUT_PATH}
-      name={ABOUT_PATH}
-      icon = "address book"
-      active={window.location.pathname === ABOUT_PATH}
-      content="About"
-      onClick={props.onTabClick}
-    />
-  );
+class AboutTab extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+    }
+    render() {
+        const id = this.props.user_id;
+        return (
+        <Menu.Item
+            as={Link}
+            to= {"/about/" + id}
+            name={"/about/" + id}
+            icon = "address book"
+            active={window.location.pathname === "/about/" + id}
+            content="About"
+            onClick={this.props.onTabClick}
+        />
+        );
+    }
 }
 
 export default AboutTab;

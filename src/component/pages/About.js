@@ -1,9 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 import { Image, Header, Segment, Step, Icon } from "semantic-ui-react";
 
-function About() {
+class About extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+    }
+    render() {
 
     return (
+
     <div>
     <Image src = "https://react.semantic-ui.com/images/avatar/small/ade.jpg"
         size = "tiny"
@@ -72,6 +81,7 @@ function About() {
 
     </div>
     )
+    }
 }
 
 export default About;

@@ -7,6 +7,7 @@ import ProfileTab from "./ProfileTab";
 import WelcomeTab from "./WelcomeTab";
 import DevicesTab from "./DevicesTab";
 import BrowseTab from "./BrowseTab";
+import { Link } from "react-router-dom";
 
 function NavigationContainer(props) {
   const [sidebarOpened, setSidebarOpened] = useState(false);
@@ -38,17 +39,21 @@ function NavigationContainer(props) {
           AutoCropper
         </Header>
 
-        <WelcomeTab onTabClick={onTabClick} />
-        <AboutTab onTabClick={onTabClick}/>
-        <ProfileTab onTabClick={onTabClick} />
-        <BrowseTab onTabClick = {onTabClick} />
-        <SetDataTab onTabClick={onTabClick} />
-        <DevicesTab onTabClick = {onTabClick} />
+        <WelcomeTab onTabClick={onTabClick} user_id = {props.user_id} />
+        <AboutTab onTabClick={onTabClick} user_id = {props.user_id} />
+        <ProfileTab onTabClick={onTabClick} user_id = {props.user_id} />
+        <BrowseTab onTabClick = {onTabClick} user_id = {props.user_id} />
+        <SetDataTab onTabClick={onTabClick} user_id = {props.user_id} />
+        <DevicesTab onTabClick = {onTabClick} user_id = {props.user_id} />
 
+        <Link to = "/">
         <Button negative
-            style = {{marginTop : 200, marginLeft: 80}}
+            style = {{marginTop : 150, marginLeft: 80}}
             onClick = { toggleLogOut }
         > Log Out </Button>
+        </Link>
+
+        <div class = "ui hidden divider" />
 
       </Sidebar>
 
