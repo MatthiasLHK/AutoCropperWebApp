@@ -7,18 +7,22 @@ class HardwareTest extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: '',
+            int: 0
         }
     }
 
     handleInput = (e) => {
         this.setState({
-            value: "/hardware-control/" + e.target.value
+
+            int: e.target.value
         })
     }
 
     handleSubmit = (e) => {
-        axios.get(this.state.value)
+        axios.post("/hardware-control", {
+            id: this.state.int
+        })
             .then(res => console.log(res.data));
     }
 
