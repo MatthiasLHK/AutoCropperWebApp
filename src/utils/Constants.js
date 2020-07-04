@@ -5,4 +5,5 @@ export const SET_DATA_PATH = "/set_data/:id";
 export const PROFILE_PATH = "/profile/:id";
 export const DEVICES_PATH = "/devices/:id";
 export const BROWSE_PATH = "/browse/:id";
+export const BROWSE_PROFILE_PATH = "/browse_profile/:id/:user";
 export const HARDWARE_TEST_PATH = "/hardware_test/:id";

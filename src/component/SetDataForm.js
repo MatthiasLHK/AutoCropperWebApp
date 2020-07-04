@@ -110,7 +110,7 @@ class SetDataForm extends React.Component {
                     <Icon name = "tint" size= "big" style = {{marginLeft: 33}} />
                     <Input
                         style = {{width: 130, fontSize: 12}}
-                        label={{ basic: true, content: 'ml'}}
+                        label={{ basic: true, content: '%'}}
                         labelPosition='right'
                         placeholder= "Enter water content"
                         value = {this.state.water}
@@ -123,7 +123,7 @@ class SetDataForm extends React.Component {
                     <Icon name = "lightbulb outline" size = "big" style = {{marginLeft: 33}} />
                     <Input
                         style = {{width: 135, fontSize: 12}}
-                        label={{ basic: true, content: 'cd'}}
+                        label={{ basic: true, content: '%'}}
                         labelPosition='right'
                         placeholder='Enter Light Intensity'
                         value = {this.state.light}
@@ -136,7 +136,7 @@ class SetDataForm extends React.Component {
                     <Icon name = "sun" size= "big" style = {{marginLeft: 33}} />
                     <Input
                         style = {{width: 138, fontSize: 11}}
-                        label={{ basic: true, content: '??'}}
+                        label={{ basic: true, content: '%'}}
                         labelPosition='right'
                         placeholder='Enter Humidity'
                         value = {this.state.humidity}

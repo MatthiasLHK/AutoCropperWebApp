@@ -115,9 +115,28 @@ class Welcome extends React.Component {
                 <Item>
                   <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
                   <Item.Content verticalAlign='middle'>
-                    <Item.Header>Content A</Item.Header>
+                    <Item.Header> {this.state.new_third.setting_name} </Item.Header>
                     <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                    <Item.Description> Description </Item.Description>
+                    <Item.Description>
+                        <List>
+                        <List.Item
+                            icon = "thermometer half"
+                            content = {"Temperature: " + this.state.new_third.temperature + "°C"}
+                        />
+                        <List.Item
+                            icon = "theme"
+                            content = {"Water Content: " + this.state.new_third.water + " %"}
+                        />
+                        <List.Item
+                             icon = "lightbulb outline"
+                             content = {"Light Intensity: " + this.state.new_third.light + " %"}
+                         />
+                        <List.Item
+                            icon = "sun outline"
+                            content = {"Humidity: " + this.state.new_third.humidity + " %"}
+                        />
+                        </List>
+                    </Item.Description>
                     <Item.Extra>
                       <Button floated='right'>Action</Button>
                     </Item.Extra>
@@ -127,9 +146,28 @@ class Welcome extends React.Component {
                 <Item>
                     <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
                     <Item.Content verticalAlign='middle'>
-                    <Item.Header>Content A</Item.Header>
+                    <Item.Header> { this.state.new_second.setting_name } </Item.Header>
                     <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                    <Item.Description> Description </Item.Description>
+                    <Item.Description>
+                        <List>
+                        <List.Item
+                            icon = "thermometer half"
+                            content = {"Temperature: " + this.state.new_second.temperature + "°C"}
+                        />
+                        <List.Item
+                            icon = "theme"
+                            content = {"Water Content: " + this.state.new_second.water + " %"}
+                        />
+                        <List.Item
+                             icon = "lightbulb outline"
+                             content = {"Light Intensity: " + this.state.new_first.light + " %"}
+                         />
+                        <List.Item
+                            icon = "sun outline"
+                            content = {"Humidity: " + this.state.new_second.humidity + " %"}
+                        />
+                        </List>
+                    </Item.Description>
                     <Item.Extra>
                     <Button floated='right'>Action</Button>
                     </Item.Extra>
@@ -149,15 +187,15 @@ class Welcome extends React.Component {
                         />
                         <List.Item
                             icon = "theme"
-                            content = {"Water Content: " + this.state.new_first.water + " ml"}
+                            content = {"Water Content: " + this.state.new_first.water + " %"}
                         />
                         <List.Item
                              icon = "lightbulb outline"
-                             content = {"Light Intensity: " + this.state.new_first.light + " A"}
+                             content = {"Light Intensity: " + this.state.new_first.light + " %"}
                          />
                         <List.Item
                             icon = "sun outline"
-                            content = {"Humidity: " + this.state.new_first.humidity + " ???"}
+                            content = {"Humidity: " + this.state.new_first.humidity + " %"}
                         />
                         </List>
                      </Item.Description>

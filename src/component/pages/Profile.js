@@ -79,26 +79,28 @@ class Profile extends React.Component {
         axios.get(this.state.getProfile)
             .then(res => {
                 if (res.data.length == 0) {
+
                     axios.post(this.state.initialiseProfile)
                         .then(res => console.log(res))
                 } else {
+                    console.log(res.data.name)
                     const newProfile = [];
-                    newProfile.push(res.data[0].name, res.data[0].user_bio, res.data[0].picture_url,
-                        res.data[0].location, res.data[0].company);
+                    newProfile.push(res.data.name, res.data.user_bio, res.data.picture_url,
+                        res.data.location, res.data.company);
                     this.setState({
                         profile: newProfile,
-                        name: res.data[0].name,
-                        bio: res.data[0].user_bio,
-                        value: res.data[0].picture_url,
-                        location: res.data[0].location,
-                        company: res.data[0].company
+                        name: res.data.name,
+                        bio: res.data.user_bio,
+                        value: res.data.picture_url,
+                        location: res.data.location,
+                        company: res.data.company
                     });
                     console.log(this.state.profile.name)
                 }
             })
         axios.get(this.state.getUserDetails)
             .then(res => {
-                this.setState({email: res.data[0].email})
+                this.setState({email: res.data.email})
             })
     }
 

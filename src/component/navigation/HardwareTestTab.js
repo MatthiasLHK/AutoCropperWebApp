@@ -18,7 +18,7 @@ class HardwareTestTab extends React.Component {
           as={Link}
           to={"/hardware_test/" + id}
           name={"/hardware_test/" + id}
-          icon = "fax"
+          icon = ""
           active={window.location.pathname === "/hardware_test/" + id}
           content= "Hardware Test"
           onClick={this.props.onTabClick}
