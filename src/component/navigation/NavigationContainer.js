@@ -7,6 +7,7 @@ import ProfileTab from "./ProfileTab";
 import WelcomeTab from "./WelcomeTab";
 import DevicesTab from "./DevicesTab";
 import BrowseTab from "./BrowseTab";
+import HardwareTestTab from "./HardwareTestTab";
 import { Link } from "react-router-dom";
 
 function NavigationContainer(props) {
@@ -45,6 +46,7 @@ function NavigationContainer(props) {
         <BrowseTab onTabClick = {onTabClick} user_id = {props.user_id} />
         <SetDataTab onTabClick={onTabClick} user_id = {props.user_id} />
         <DevicesTab onTabClick = {onTabClick} user_id = {props.user_id} />
+        <HardwareTestTab onTabClick = {onTabClick} user_id = {props.user_id} />
 
         <Link to = "/">
         <Button negative

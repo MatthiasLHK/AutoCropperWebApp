@@ -11,7 +11,8 @@ import {
     ROOT_PATH,
     DEVICES_PATH,
     BROWSE_PATH,
-    HOME_PATH
+    HOME_PATH,
+    HARDWARE_TEST_PATH
 } from "./utils/Constants";
 import About from "./component/pages/About";
 import SetData from "./component/pages/SetData";
@@ -20,6 +21,7 @@ import Welcome from "./component/pages/Welcome";
 import Login from "./component/pages/Login";
 import Devices from "./component/pages/Devices";
 import Browse from "./component/pages/Browse";
+import HardwareTest from "./component/pages/HardwareTest";
 
 class App extends React.Component {
 
@@ -60,6 +62,7 @@ class App extends React.Component {
                             <Route path = {PROFILE_PATH} exact component = {Profile} />
                             <Route path = {SET_DATA_PATH} exact component = {SetData} />
                             <Route path = {DEVICES_PATH} exact component = {Devices} />
+                            <Route path = {HARDWARE_TEST_PATH} exact component = {HardwareTest} />
 
                         <Route>
                         <Redirect to = {HOME_PATH} />
