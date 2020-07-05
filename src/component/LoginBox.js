@@ -23,7 +23,7 @@ class LoginBox extends React.Component {
 //     this.props.toggleLogIn(); // remove later
 
 
-    axios.post('/login-Auth', {
+    axios.post('https://desolate-sierra-00304.herokuapp.com/login-Auth', {
         username: this.state.username,
         password: this.state.password
     })
