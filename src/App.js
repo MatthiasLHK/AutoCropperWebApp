@@ -23,6 +23,7 @@ import Devices from "./component/pages/Devices";
 import Browse from "./component/pages/Browse";
 import HardwareTest from "./component/pages/HardwareTest";
 
+
 class App extends React.Component {
 
     constructor() {
@@ -77,4 +78,3 @@ class App extends React.Component {
 }
 
 export default App;
-
