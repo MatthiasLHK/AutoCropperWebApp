@@ -22,7 +22,7 @@ class Welcome extends React.Component {
     }
 
     componentDidMount = () => {
-        axios.get("/newly-posted")
+        axios.get("https://desolate-sierra-00304.herokuapp.com/newly-posted")
             .then(res => {
                 this.setState({
                     new_first: res.data[0],

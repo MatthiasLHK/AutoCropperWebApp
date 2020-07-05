@@ -17,7 +17,7 @@ class RegisterBox extends React.Component {
 
   submitRegister = async (e) => {
         e.preventDefault();
-        axios.post("/register", {
+        axios.post("https://desolate-sierra-00304.herokuapp.com/register", {
             username: this.state.username,
             password: this.state.password,
             email: this.state.email

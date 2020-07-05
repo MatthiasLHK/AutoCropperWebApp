@@ -32,7 +32,7 @@ class SetDataForm extends React.Component {
             plant: '',
         });
 
-        axios.post("/settings-p", {
+        axios.post("https://desolate-sierra-00304.herokuapp.com/settings-p", {
             temperature: this.state.temperature,
             water: this.state.water,
             light: this.state.light,

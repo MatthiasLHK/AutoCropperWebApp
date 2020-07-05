@@ -20,7 +20,7 @@ class HardwareTest extends React.Component {
     }
 
     handleSubmit = (e) => {
-        axios.post("/hardware-control", {
+        axios.post("https://desolate-sierra-00304.herokuapp.com/hardware-control", {
             id: this.state.int
         })
             .then(res => console.log(res.data));
