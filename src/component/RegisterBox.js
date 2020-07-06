@@ -46,8 +46,6 @@ class RegisterBox extends React.Component {
 
       <div className="inner-container">
 
-
-
         <div className="header">
           Register
         </div>
@@ -68,7 +66,7 @@ class RegisterBox extends React.Component {
             ?
             <div>
             <Label basic color = "red" pointing>
-            Username Taken
+            Username Taken. Please try again!
             </Label>
             </div>
             :

@@ -78,12 +78,10 @@ class Profile extends React.Component {
     componentDidMount = () => {
         axios.get(this.state.getProfile)
             .then(res => {
-                if (res.data.length == 0) {
-
+                if (res.data == "failed") {
                     axios.post(this.state.initialiseProfile)
                         .then(res => console.log(res))
                 } else {
-                    console.log(res.data.name)
                     const newProfile = [];
                     newProfile.push(res.data.name, res.data.user_bio, res.data.picture_url,
                         res.data.location, res.data.company);
@@ -95,13 +93,17 @@ class Profile extends React.Component {
                         location: res.data.location,
                         company: res.data.company
                     });
-                    console.log(this.state.profile.name)
+
                 }
             })
         axios.get(this.state.getUserDetails)
             .then(res => {
-                this.setState({email: res.data.email})
+                console.log(res.data[0].email)
+                this.setState({
+                    email: res.data[0].email
+                })
             })
+
     }
 
     render() {

@@ -20,8 +20,6 @@ class LoginBox extends React.Component {
   submitLogin = (e) => {
     e.preventDefault();
 
-
-
     axios.post('/login-Auth', {
         username: this.state.username,
         password: this.state.password
