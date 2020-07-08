@@ -13,7 +13,8 @@ class SetDataForm extends React.Component {
             light: '',
             humidity: '',
             plant: '',
-            user_id: ''
+            user_id: '',
+            comment:''
         }
 
         this.handleOpen = this.handleOpen.bind(this);
@@ -30,6 +31,7 @@ class SetDataForm extends React.Component {
             light: '',
             humidity: '',
             plant: '',
+            comment: ''
         });
 
         axios.post("/settings-p", {
@@ -38,7 +40,8 @@ class SetDataForm extends React.Component {
             light: this.state.light,
             humidity: this.state.humidity,
             user_id: this.props.user_id,
-            name: this.state.plant
+            name: this.state.plant,
+            comment: this.state.comment
         })
         .then(res => { console.log(res) })
     }
@@ -94,7 +97,7 @@ class SetDataForm extends React.Component {
                 </Form.Field>
 
                 <Form.Field>
-                    <label style ={{marginTop: 10, marginLeft: 40, fontSize: 21}}> Temperature </label>
+                    <label style ={{marginTop: 15, marginLeft: 40, fontSize: 21}}> Temperature </label>
                     <Icon name = "thermometer" size= "big" style = {{marginLeft: 33}}/>
                     <Input style = {{width: 130, fontSize: 12}}
                                 label={{ basic: true, content: '°C'}}
@@ -106,7 +109,7 @@ class SetDataForm extends React.Component {
                     </Form.Field>
 
                 <Form.Field>
-                    <label style = {{fontSize: 19, marginLeft: 40}}> Water Content </label>
+                    <label style = {{fontSize: 19, marginLeft: 40, marginTop: 15}}> Water Content </label>
                     <Icon name = "tint" size= "big" style = {{marginLeft: 33}} />
                     <Input
                         style = {{width: 130, fontSize: 12}}
@@ -119,7 +122,7 @@ class SetDataForm extends React.Component {
                 </Form.Field>
 
                 <Form.Field>
-                    <label style = {{ fontSize: 19, marginLeft: 40 }}> Light Intensity </label>
+                    <label style = {{ fontSize: 19, marginLeft: 40, marginTop: 15 }}> Light Intensity </label>
                     <Icon name = "lightbulb outline" size = "big" style = {{marginLeft: 33}} />
                     <Input
                         style = {{width: 135, fontSize: 12}}
@@ -132,7 +135,7 @@ class SetDataForm extends React.Component {
                  </Form.Field>
 
                  <Form.Field>
-                    <label style = {{fontSize: 18, marginLeft: 40}}> Humidity </label>
+                    <label style = {{fontSize: 18, marginLeft: 40, marginTop: 15}}> Humidity </label>
                     <Icon name = "sun" size= "big" style = {{marginLeft: 33}} />
                     <Input
                         style = {{width: 138, fontSize: 11}}
@@ -143,6 +146,17 @@ class SetDataForm extends React.Component {
                         onChange = {e => this.setState({humidity: e.target.value})}
                         />
                  </Form.Field>
+
+                <Form.Field>
+                    <label style = {{fontSize: 18, marginLeft: 40, marginTop: 20}}> Comments </label>
+                    <Form.TextArea
+                        placeholder = "Add Comments"
+                        onChange = {e => this.setState({comment: e.target.value})}
+                        value = {this.state.comment}
+                        width = {10}
+                        style = {{ marginBottom: 20, marginLeft: 25 }}
+                    />
+                </Form.Field>
 
                 <InputSuccess />
             </Form>

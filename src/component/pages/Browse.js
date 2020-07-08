@@ -50,6 +50,7 @@ class Browse extends React.Component {
 
         axios.get(this.state.user1)
             .then(res => {
+
                 if (res.data == "failed") {
                     this.setState({
                         browsing: true
@@ -108,7 +109,7 @@ class Browse extends React.Component {
     }
 
     render() {
-
+        console.log(this.state.settings)
         return (
 
             <div style = {{ marginTop: 60 }} >
@@ -222,7 +223,7 @@ class Browse extends React.Component {
                         <Card.Meta style = {{marginLeft: 10}} > Cultivated in 2020 </Card.Meta>
                         <div class = "ui hidden divider" />
                         <Card.Description>
-                            <List style = {{marginBottom: 10}}>
+                            <List style = {{marginBottom: 10}} >
                                 <List.Item
                                     as = 'a'
                                     icon = "thermometer quarter"
@@ -254,13 +255,20 @@ class Browse extends React.Component {
                             </List>
                         </Card.Description>
                         <Card.Content extra>
-                            <Button
-                                basic
-                                color = "red"
+                            <Modal
+                                trigger = {
+                                    <Button basic color = "red" >
+                                    <Icon name = "comment" />
+                                    View Comments
+                                    </Button>
+                                    }
+                                closeIcon
                             >
-                            <Icon name = "comment" />
-                            View Comments
-                            </Button>
+                            <Header icon = "comments" content = "View Remarks" />
+                            <Modal.Content>
+                                {res.comments}
+                            </Modal.Content>
+                            </Modal>
                         </Card.Content>
                      </Card>
                 ))}

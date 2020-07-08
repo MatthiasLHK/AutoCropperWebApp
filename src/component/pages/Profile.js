@@ -1,6 +1,8 @@
 import React, { component } from "react";
 import axios from 'axios';
-import { List, Card, Dropdown, Form, Header, Image, Modal, Icon, Button, TextArea, Input, Label, Segment } from "semantic-ui-react";
+import { List, Message, Card, Dropdown, Form, Header, Image, Modal, Icon, Button, TextArea, Input, Label, Segment } from "semantic-ui-react";
+import { Link } from 'react-router-dom';
+import update from 'react-addons-update';
 
 class Profile extends React.Component {
 
@@ -13,6 +15,8 @@ class Profile extends React.Component {
             initialiseProfile: "/profile-initial/" + this.props.match.params.id,
             updateProfile: "/profile-update/" + this.props.match.params.id,
             getUserDetails: "/getUserDetails/" + this.props.match.params.id,
+            getSettings: "/settings-p/" + this.props.match.params.id,
+            updateComment: '',
             email: '',
             bio: '',
             name:'',
@@ -20,7 +24,11 @@ class Profile extends React.Component {
             value: '', // avatar
             location: '',
             company: '',
-            username: null
+            username: null,
+            settings: [],
+            comment: '',
+            profileUpdated: false,
+            commentModal: false
         }
 
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -42,6 +50,33 @@ class Profile extends React.Component {
         this.setState({
             updateAccount: true
         });
+    }
+
+
+    submitComment = (index) => {
+        axios.put(this.state.updateComment, {
+            comments: this.state.comment
+        })
+            .then(res => console.log(res));
+
+        const newSettings = [];
+
+        for (let i = 0; i < this.state.settings.length; i++) {
+            if (index !== i) {
+                newSettings.push(this.state.settings[i])
+            } else {
+                const item = this.state.settings[i];
+                item.comments = this.state.comment
+                newSettings.push(item);
+            }
+        }
+
+
+        this.setState({
+            settings: newSettings,
+            commentModal: true
+        })
+        console.log(this.state.settings)
     }
 
     handleNoChange = (e) => {
@@ -74,6 +109,9 @@ class Profile extends React.Component {
             .then(res => console.log(res));
     }
 
+    handleComment = (e) => {
+        this.setState({ comment: e.target.value })
+    }
 
     componentDidMount = () => {
         axios.get(this.state.getProfile)
@@ -93,23 +131,31 @@ class Profile extends React.Component {
                         location: res.data.location,
                         company: res.data.company
                     });
-
                 }
             })
+
         axios.get(this.state.getUserDetails)
             .then(res => {
-                console.log(res.data[0].email)
+
                 this.setState({
                     email: res.data[0].email
                 })
             })
 
+        axios.get(this.state.getSettings)
+            .then(res => {
+                console.log(res)
+                for(let i = 0; i < res.data.length; i++) {
+                    this.setState({
+                        settings: this.state.settings.concat(res.data[i])
+                    })
+                }
+            })
     }
 
     render() {
 
     const id = this.props.match.params.id;
-
 
     const avatars = [
         {
@@ -152,7 +198,7 @@ class Profile extends React.Component {
 
         return (
                 <div style = {{marginTop: 60}} >
-
+                {this.state.profileUpdated ? <h1> updated </h1> : <h1> </h1>}
                 <Modal
                     trigger={
                     <button
@@ -166,7 +212,6 @@ class Profile extends React.Component {
                     open={this.state.updateAccount}
                     onClose={this.handleClose}
                 >
-
 
                 <Header icon='browser' content='Update Account Settings' />
                 <Modal.Content>
@@ -232,7 +277,11 @@ class Profile extends React.Component {
                 </Modal.Actions>
                 </Modal>
 
-                <Card style = {{marginLeft:50, marginTop: 70}} color = "teal" >
+                <Label as = "a" tag color = "teal" size = "huge" style = {{marginLeft: 60, marginTop: 20}}>
+                    View Profile
+                </Label>
+
+                <Card style = {{marginLeft:50, marginTop: 15}} color = "teal" >
                     <Image
                         src = {this.state.profile[2]}
                         size = "medium"
@@ -258,8 +307,126 @@ class Profile extends React.Component {
 
                 <div class = "ui hidden divider" > </div>
 
+                <Label as = "a" tag color = "teal" size = "huge" style = {{marginLeft: 60, marginTop: 40}}>
+                    View Past Conditions and Settings
+                </Label>
 
+                <Card.Group style = {{marginTop: 15}}>
+                {this.state.settings.map((res, index) => {
 
+                    return (
+                     <Card style = {{ marginLeft:50 }} color = "teal">
+                        <Card.Header
+                            style = {{marginTop:5, fontWeight:'bold', marginBottom: 0}}
+                        >
+                            {res.setting_name}
+                        </Card.Header>
+                        <div class = "ui divider" />
+                        <Card.Meta style = {{marginLeft: 10}} > Cultivated in 2020 </Card.Meta>
+                        <div class = "ui hidden divider" />
+                        <Card.Description>
+                            <List style = {{marginBottom: 10}}>
+                                <List.Item
+                                    as = 'a'
+                                    icon = "thermometer quarter"
+                                    content = {"Temperature: " + res.temperature + " °C"}
+                                    style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                />
+
+                                <List.Item
+                                    as = 'a'
+                                    icon = "tint"
+                                    content = {"Water Content: " + res.water + " %"}
+                                    style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                />
+
+                                <List.Item
+                                    as = 'a'
+                                    icon = "lightbulb"
+                                    content = {"Light Intensity: " + res.light + " %"}
+                                    style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                />
+
+                                <List.Item
+                                    as = 'a'
+                                    icon = "sun"
+                                    content = {"Humidity: " + res.temperature + " %"}
+                                    style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                />
+                            </List>
+                        </Card.Description>
+                        <Card.Content extra>
+
+                            <Modal
+                                trigger = {
+                                    <Button basic color = "red" size = "mini">
+                                    <Icon name = "comment" />
+                                    View Comments
+                                    </Button>
+                                    }
+                                closeIcon
+                            >
+                            <Header icon = "comment outline" content = "View Remarks" />
+                            <Modal.Content>
+                                <p> {res.comments} </p>
+                            </Modal.Content>
+                            </Modal>
+
+                            <Modal
+                                closeIcon
+                                trigger = {
+                                    <Button
+                                        basic
+                                        color = "green"
+                                        size = "mini"
+                                        onClick = {e => this.setState({
+                                            comment: this.state.settings[index].comments,
+                                            updateComment: "/update-comment/" + this.state.settings[index].settings_id,
+                                            commentModal: false
+                                            })}
+                                    >
+                                    <Icon name = "edit" />
+                                    Edit Comments
+                                    </Button>
+                                }
+                            >
+                            <Header icon = "write" content = "Edit Comments" />
+                            <Modal.Content>
+
+                            <Form>
+                                <Form.TextArea
+                                    placeholder = "Update Settings Comments"
+                                    onChange = {this.handleComment}
+                                    value = {this.state.comment}
+                                />
+                            </Form>
+
+                            <Button
+                                icon
+                                labelPosition = "left"
+                                style = {{ marginTop: 10 }}
+                                color = "vk"
+                                onClick = {() => this.submitComment(index)}
+                            >
+                            <Icon name = "upload" />
+                                Submit
+                            </Button>
+                            {this.state.commentModal
+                                ?
+                                <Message positive icon >
+                                <Icon name = "checkmark" />
+                                <p style = {{fontWeight: 'bold', fontSize: '1.5em'}}>
+                                Comments Updated! Close the box to proceed!
+                                </p>
+                                </Message>
+                                : ""}
+                            </Modal.Content>
+                            </Modal>
+
+                        </Card.Content>
+                     </Card>
+                )})}
+                </Card.Group>
               </div>
 
         );
