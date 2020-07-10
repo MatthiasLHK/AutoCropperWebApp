@@ -52,10 +52,57 @@ class Profile extends React.Component {
         });
     }
 
+    shareSetting = (id, index) => {
+        axios.post ('/settings-p/upload', {
+            setting_id: id
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
 
-    submitComment = (index) => {
+        const newSettings = [];
+
+        for (let i = 0; i < this.state.settings.length; i++) {
+            if (index !== i) {
+                newSettings.push(this.state.settings[i])
+            } else {
+                const item = this.state.settings[i];
+                item.shared = true;
+                newSettings.push(item);
+            }
+        }
+
+        this.setState({
+            settings: newSettings
+        })
+    }
+
+    unshareSetting = (id, index) => {
+
+        axios.post('/un-upload/', {
+            id: id
+        })
+
+        const newSettings = [];
+
+        for (let i = 0; i < this.state.settings.length; i++) {
+            if (index !== i) {
+                newSettings.push(this.state.settings[i])
+            } else {
+                const item = this.state.settings[i];
+                item.shared = false;
+                newSettings.push(item);
+            }
+        }
+
+        this.setState({
+            settings: newSettings
+        })
+    }
+
+    submitComment = (index, shared) => {
         axios.put(this.state.updateComment, {
-            comments: this.state.comment
+            comments: this.state.comment,
+            shared: shared
         })
             .then(res => console.log(res));
 
@@ -70,7 +117,6 @@ class Profile extends React.Component {
                 newSettings.push(item);
             }
         }
-
 
         this.setState({
             settings: newSettings,
@@ -354,12 +400,10 @@ class Profile extends React.Component {
                                     style = {{marginLeft: 10, fontSize: "1.2em"}}
                                 />
                             </List>
-                        </Card.Description>
-                        <Card.Content extra>
 
                             <Modal
                                 trigger = {
-                                    <Button basic color = "red" size = "mini">
+                                    <Button basic color = "red" size = "mini" style = {{marginLeft: 19, marginTop: 10, marginBottom: 10}}>
                                     <Icon name = "comment" />
                                     View Comments
                                     </Button>
@@ -406,7 +450,7 @@ class Profile extends React.Component {
                                 labelPosition = "left"
                                 style = {{ marginTop: 10 }}
                                 color = "vk"
-                                onClick = {() => this.submitComment(index)}
+                                onClick = {() => this.submitComment(index, res.shared)}
                             >
                             <Icon name = "upload" />
                                 Submit
@@ -422,7 +466,28 @@ class Profile extends React.Component {
                                 : ""}
                             </Modal.Content>
                             </Modal>
-
+                        </Card.Description>
+                        <Card.Content extra>
+                            {!res.shared
+                                ?
+                                <Button
+                                    color = "twitter"
+                                    onClick = {() => this.shareSetting(res.settings_id, index)}
+                                    style = {{marginLeft: 55}}
+                                >
+                                    <Icon name = "share" />
+                                    Share Setting
+                                </Button>
+                                :
+                                <Button
+                                    color = "youtube"
+                                    onClick = {() => this.unshareSetting(res.settings_id, index)}
+                                    style = {{marginLeft: 55}}
+                                >
+                                    <Icon name = "user cancel" />
+                                    Privatise Setting
+                                </Button>
+                            }
                         </Card.Content>
                      </Card>
                 )})}

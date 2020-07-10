@@ -33,7 +33,7 @@ class HardwareTest extends React.Component {
             <Input
                 type = 'text'
                 focus
-                placeholder = "enter integer"
+                placeholder = "Enter integer"
                 onChange = { this.handleInput }
              >
              <input />

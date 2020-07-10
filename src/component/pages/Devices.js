@@ -1,18 +1,85 @@
 import React, { component } from "react";
-import { Icon, Label, Image, Card, Button } from "semantic-ui-react";
+import { Modal, Icon, Label, Image, Card, Button, Input } from "semantic-ui-react";
+import axios from "axios";
 
 class Devices extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            addingDevice: false,
+            device_id: null
         }
+    }
+
+    handleInput = (e) => {
+        this.setState({
+            device_id: e.target.value
+        })
+    }
+
+    submitDevice = () => {
+        const url = '/register-new-device/' + this.props.match.params.id;
+        axios.post(url, {
+            device_id: this.state.device_id
+        })
+            .then(res => {
+                console.log(res)
+            })
+
+
+    }
+
+    addDevice = () => {
+        this.setState({
+            addingDevice: true
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            addingDevice: false
+        })
     }
 
     render() {
         const id = this.props.match.params.id;
         return (
         <div style = {{ marginTop: 60 }}>
+            <Modal
+                    closeIcon
+                    trigger={
+                    <button
+                    class = 'small ui red right floated button'
+                    style = {{marginRight: 20, marginTop: 10}}
+                    onClick={this.addDevice}
+                    >
+                    <i class = "hdd icon"> </i>
+                    Add a new Device </button>
+                    }
+                    open={this.state.addingDevice}
+                    onClose={this.handleClose}
+            >
+                <Modal.Header> Add a new Device </Modal.Header>
+                <Modal.Content>
+                <Modal.Description>
+                    Register your new device by keying in the device id provided by your device
+                    <div class = "ui hidden divider" />
+                    <Input
+                        type = 'text'
+                        focus
+                        placeholder = "Enter Device ID"
+                        onChange = { this.handleInput }
+                     >
+                     <input />
+                     <Button color = "primary" onClick = {this.submitDevice} > Submit </Button>
+                     </Input>
+
+                </Modal.Description>
+                </Modal.Content>
+
+            </Modal>
+
             <Card.Group>
                 <Card style = {{ marginLeft: 30 }} color = "teal">
                     <Card.Content>

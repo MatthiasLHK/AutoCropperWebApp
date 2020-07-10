@@ -213,7 +213,7 @@ class Browse extends React.Component {
 
                 <Card.Group>
                 {this.state.settings.map((res, index) => (
-                     <Card style = {{ marginLeft:50 }} >
+                     <Card style = {{ marginLeft:50 }} color = 'teal'>
                         <Card.Header
                             style = {{marginTop:5, fontWeight:'bold', marginBottom: 0}}
                         >
