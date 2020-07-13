@@ -8,35 +8,37 @@ class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            new_first: [],
-            new_second: [],
-            new_third: [],
-            new_fourth: [],
-            new_fifth: [],
-            top_first: [],
-            top_second: [],
-            top_third: [],
-            top_fourth: [],
-            top_fifth: []
+            newSettings: [],
+            topSettings: []
         }
     }
 
     componentDidMount = () => {
+
         axios.get("/newly-posted")
             .then(res => {
-                this.setState({
-                    new_first: res.data[0],
-                    new_second: res.data[1],
-                    new_third: res.data[2],
-                    new_fourth: res.data[3],
-                    new_fifth: res.data[4]
-                })
-                console.log(this.state)
+                for(let i = 0; i < res.data.length; i++) {
+                    this.setState({
+                        newSettings: this.state.newSettings.concat(res.data[i])
+                    })
+                }
             })
             .catch(err => console.log(err))
+
+        axios.get('/top-5-rated')
+            .then(res => {
+                for(let i = 0; i < res.data.length; i++) {
+                    this.setState({
+                        topSettings: this.state.topSettings.concat(res.data[i])
+                    })
+                }
+            })
+            .catch(err => console.log(err))
+
     }
 
     render() {
+
         return (
             <div style = {{ marginTop: 90 }}>
 
@@ -55,45 +57,27 @@ class Welcome extends React.Component {
 
             <Segment attached >
              <Item.Group relaxed >
-                <Item>
-                  <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                  <Item.Content verticalAlign='middle'>
-                    <Item.Header> Content A </Item.Header>
-                    <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                    <Item.Description>
-                        <List>
-                            <List.Item icon = "" />
-                        </List>
-                    </Item.Description>
-                    <Item.Extra>
-                      <Button floated='right'>Action</Button>
-                    </Item.Extra>
-                  </Item.Content>
-                </Item>
 
-                <Item>
-                    <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                    <Item.Content verticalAlign='middle'>
-                    <Item.Header>Content A</Item.Header>
-                    <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                    <Item.Description> Description </Item.Description>
-                    <Item.Extra>
-                    <Button floated='right'>Action</Button>
-                    </Item.Extra>
-                    </Item.Content>
-                </Item>
+                {this.state.topSettings.map((res, index) => {
+                    return (
+                        <Item>
+                        <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                            <Item.Content verticalAlign='middle'>
+                            <Item.Header> {res.setting_name} </Item.Header>
+                            <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
+                            <Item.Description>
+                                <List>
+                                    <List.Item icon = "" />
+                                </List>
+                            </Item.Description>
+                            <Item.Extra>
+                              <Button floated='right'>Action</Button>
+                            </Item.Extra>
+                            </Item.Content>
+                        </Item>
+                    )
+                })}
 
-                <Item>
-                     <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                     <Item.Content verticalAlign='middle'>
-                     <Item.Header>Content A</Item.Header>
-                     <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                     <Item.Description> Description </Item.Description>
-                     <Item.Extra>
-                     <Button floated='right'>Action</Button>
-                     </Item.Extra>
-                     </Item.Content>
-                </Item>
              </Item.Group>
              </Segment>
 
@@ -112,98 +96,42 @@ class Welcome extends React.Component {
 
             <Segment attached>
              <Item.Group relaxed>
-                <Item>
-                  <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                  <Item.Content verticalAlign='middle'>
-                    <Item.Header> {this.state.new_third.setting_name} </Item.Header>
-                    <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                    <Item.Description>
-                        <List>
-                        <List.Item
-                            icon = "thermometer half"
-                            content = {"Temperature: " + this.state.new_third.temperature + "°C"}
-                        />
-                        <List.Item
-                            icon = "theme"
-                            content = {"Water Content: " + this.state.new_third.water + " %"}
-                        />
-                        <List.Item
-                             icon = "lightbulb outline"
-                             content = {"Light Intensity: " + this.state.new_third.light + " %"}
-                         />
-                        <List.Item
-                            icon = "sun outline"
-                            content = {"Humidity: " + this.state.new_third.humidity + " %"}
-                        />
-                        </List>
-                    </Item.Description>
-                    <Item.Extra>
-                      <Button floated='right'>Action</Button>
-                    </Item.Extra>
-                  </Item.Content>
-                </Item>
+             {this.state.newSettings.map((res, index) => {
 
-                <Item>
-                    <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                    <Item.Content verticalAlign='middle'>
-                    <Item.Header> { this.state.new_second.setting_name } </Item.Header>
-                    <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                    <Item.Description>
-                        <List>
-                        <List.Item
-                            icon = "thermometer half"
-                            content = {"Temperature: " + this.state.new_second.temperature + "°C"}
-                        />
-                        <List.Item
-                            icon = "theme"
-                            content = {"Water Content: " + this.state.new_second.water + " %"}
-                        />
-                        <List.Item
-                             icon = "lightbulb outline"
-                             content = {"Light Intensity: " + this.state.new_first.light + " %"}
-                         />
-                        <List.Item
-                            icon = "sun outline"
-                            content = {"Humidity: " + this.state.new_second.humidity + " %"}
-                        />
-                        </List>
-                    </Item.Description>
-                    <Item.Extra>
-                    <Button floated='right'>Action</Button>
-                    </Item.Extra>
-                    </Item.Content>
-                </Item>
+                return (
+                    <Item>
+                        <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                        <Item.Content verticalAlign='middle'>
+                            <Item.Header> {res.setting_name} </Item.Header>
+                            <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
+                            <Item.Description>
+                                <List>
+                                <List.Item
+                                    icon = "thermometer half"
+                                    content = {"Temperature: " + res.temperature + "°C"}
+                                />
+                                <List.Item
+                                    icon = "theme"
+                                    content = {"Water Content: " + res.water + " %"}
+                                />
+                                <List.Item
+                                     icon = "lightbulb outline"
+                                     content = {"Light Intensity: " + res.light + " %"}
+                                 />
+                                <List.Item
+                                    icon = "sun outline"
+                                    content = {"Humidity: " + res.humidity + " %"}
+                                />
+                                </List>
+                            </Item.Description>
+                            <Item.Extra>
+                              <Button floated='right'>Action</Button>
+                            </Item.Extra>
+                        </Item.Content>
+                    </Item>
+                )
+             })}
 
-                <Item>
-                     <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                     <Item.Content verticalAlign='middle'>
-                     <Item.Header> { this.state.new_first.setting_name } </Item.Header>
-                     <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
-                     <Item.Description>
-                        <List>
-                        <List.Item
-                            icon = "thermometer half"
-                            content = {"Temperature: " + this.state.new_first.temperature + "°C"}
-                        />
-                        <List.Item
-                            icon = "theme"
-                            content = {"Water Content: " + this.state.new_first.water + " %"}
-                        />
-                        <List.Item
-                             icon = "lightbulb outline"
-                             content = {"Light Intensity: " + this.state.new_first.light + " %"}
-                         />
-                        <List.Item
-                            icon = "sun outline"
-                            content = {"Humidity: " + this.state.new_first.humidity + " %"}
-                        />
-                        </List>
-                     </Item.Description>
-                     <Item.Extra>
-                     <Button floated='right'>Action</Button>
-                     </Item.Extra>
-                     </Item.Content>
-                </Item>
              </Item.Group>
              </Segment>
 

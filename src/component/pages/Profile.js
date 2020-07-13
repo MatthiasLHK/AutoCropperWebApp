@@ -28,7 +28,14 @@ class Profile extends React.Component {
             settings: [],
             comment: '',
             profileUpdated: false,
-            commentModal: false
+            commentModal: false,
+            edited: false,
+            deleted: false,
+            setting_name: '',
+            temperature: 0,
+            light: 0,
+            water: 0,
+            humidity: 0
         }
 
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -50,6 +57,70 @@ class Profile extends React.Component {
         this.setState({
             updateAccount: true
         });
+    }
+
+    submitSettings = (id, index) => {
+
+        axios.put('/edit-settings/', {
+            id: id,
+            temperature: this.state.temperature,
+            water: this.state.water,
+            light: this.state.light,
+            humidity: this.state.humidity,
+            setting_name: this.state.setting_name
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+
+        const newSetting = [];
+
+        for (let i = 0; i < this.state.settings.length; i++) {
+            if (index !== i) {
+                newSetting.push(this.state.settings[i])
+            } else {
+                const item = this.state.settings[i];
+                item.setting_name = this.state.setting_name;
+                item.temperature = this.state.temperature;
+                item.water = this.state.water;
+                item.light = this.state.light;
+                item.humidity= this.state.humidity;
+                newSetting.push(item);
+            }
+        }
+
+        this.setState({
+            settings: newSetting,
+            edited: true
+        })
+    }
+
+    deleteSetting = (id, index) => {
+        axios.put('/delete-settings/', {
+            settings_id: id
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+
+        const newSetting = [];
+
+        for (let i = 0; i < this.state.settings.length; i++) {
+            if (index !== i) {
+                newSetting.push(this.state.settings[i])
+            } else {
+            }
+        }
+
+        this.setState({
+            settings: newSetting,
+            edited: false,
+            deleted: true,
+            temperature: '',
+            setting_name: '',
+            water: '',
+            light: '',
+            humidity: ''
+        })
+
     }
 
     shareSetting = (id, index) => {
@@ -99,10 +170,9 @@ class Profile extends React.Component {
         })
     }
 
-    submitComment = (index, shared) => {
+    submitComment = (index) => {
         axios.put(this.state.updateComment, {
             comments: this.state.comment,
-            shared: shared
         })
             .then(res => console.log(res));
 
@@ -122,7 +192,7 @@ class Profile extends React.Component {
             settings: newSettings,
             commentModal: true
         })
-        console.log(this.state.settings)
+
     }
 
     handleNoChange = (e) => {
@@ -182,7 +252,6 @@ class Profile extends React.Component {
 
         axios.get(this.state.getUserDetails)
             .then(res => {
-
                 this.setState({
                     email: res.data[0].email
                 })
@@ -359,7 +428,6 @@ class Profile extends React.Component {
 
                 <Card.Group style = {{marginTop: 15}}>
                 {this.state.settings.map((res, index) => {
-
                     return (
                      <Card style = {{ marginLeft:50 }} color = "teal">
                         <Card.Header
@@ -450,7 +518,7 @@ class Profile extends React.Component {
                                 labelPosition = "left"
                                 style = {{ marginTop: 10 }}
                                 color = "vk"
-                                onClick = {() => this.submitComment(index, res.shared)}
+                                onClick = {() => this.submitComment(index)}
                             >
                             <Icon name = "upload" />
                                 Submit
@@ -473,7 +541,8 @@ class Profile extends React.Component {
                                 <Button
                                     color = "twitter"
                                     onClick = {() => this.shareSetting(res.settings_id, index)}
-                                    style = {{marginLeft: 55}}
+                                    size = "mini"
+                                    style = {{marginLeft: 5}}
                                 >
                                     <Icon name = "share" />
                                     Share Setting
@@ -482,12 +551,142 @@ class Profile extends React.Component {
                                 <Button
                                     color = "youtube"
                                     onClick = {() => this.unshareSetting(res.settings_id, index)}
-                                    style = {{marginLeft: 55}}
+                                    size = "mini"
+                                    style = {{marginLeft: 5}}
                                 >
                                     <Icon name = "user cancel" />
                                     Privatise Setting
                                 </Button>
                             }
+
+                            <Modal
+                                closeIcon
+                                trigger = {
+                                    <Button
+                                        color = "secondary"
+                                        onClick = { e => this.setState({
+                                            setting_name: res.setting_name,
+                                            temperature: res.temperature,
+                                            water: res.water,
+                                            light: res.light,
+                                            humidity: res.humidity,
+                                            edited: false,
+                                            deleted: false
+                                        })}
+                                        size = "mini"
+                                        style = {{marginLeft: 5}}
+                                    >
+                                    <Icon name = "setting" />
+                                    Edit Settings
+                                    </Button>
+                                }
+                            >
+
+                            <Header icon = "write square" content = "Edit Settings" />
+                            <Modal.Content>
+                                <Form>
+                                    <Form.Field>
+                                        <label style ={{marginTop: 5, marginLeft: 10, fontSize: 21}}> Setting Name </label>
+                                        <Icon name = "leaf" size= "big" style = {{marginLeft: 13}}/>
+                                        <Input style = {{width: 130, fontSize: 12}}
+                                            placeholder= 'Enter Settings Name'
+                                            value = {this.state.setting_name}
+                                            onChange = {e => this.setState({setting_name: e.target.value})}
+                                        />
+                                    </Form.Field>
+
+                                    <Form.Field>
+                                        <label style ={{marginTop: 15, marginLeft: 10, fontSize: 21}}> Temperature </label>
+                                        <Icon name = "thermometer" size= "big" style = {{marginLeft: 13}}/>
+                                        <Input style = {{width: 130, fontSize: 12}}
+                                                    label={{ basic: true, content: '°C'}}
+                                                   labelPosition='right'
+                                                   placeholder= 'Enter temperature'
+                                                   value = {this.state.temperature}
+                                                   onChange = {e => this.setState({temperature: e.target.value})}
+                                                 />
+                                        </Form.Field>
+
+                                    <Form.Field>
+                                        <label style = {{fontSize: 19, marginLeft: 10, marginTop: 15}}> Water Content </label>
+                                        <Icon name = "tint" size= "big" style = {{marginLeft: 13}} />
+                                        <Input
+                                            style = {{width: 130, fontSize: 12}}
+                                            label={{ basic: true, content: '%'}}
+                                            labelPosition='right'
+                                            placeholder= "Enter water content"
+                                            value = {this.state.water}
+                                            onChange = {e => this.setState({water: e.target.value})}
+                                        />
+                                    </Form.Field>
+
+                                    <Form.Field>
+                                        <label style = {{ fontSize: 19, marginLeft: 10, marginTop: 15 }}> Light Intensity </label>
+                                        <Icon name = "lightbulb outline" size = "big" style = {{marginLeft: 13}} />
+                                        <Input
+                                            style = {{width: 135, fontSize: 12}}
+                                            label={{ basic: true, content: '%'}}
+                                            labelPosition='right'
+                                            placeholder='Enter Light Intensity'
+                                            value = {this.state.light}
+                                            onChange = {e => this.setState({light: e.target.value})}
+                                        />
+                                     </Form.Field>
+
+                                     <Form.Field>
+                                        <label style = {{fontSize: 18, marginLeft: 10, marginTop: 15}}> Humidity </label>
+                                        <Icon name = "sun" size= "big" style = {{marginLeft: 13}} />
+                                        <Input
+                                            style = {{width: 138, fontSize: 11}}
+                                            label={{ basic: true, content: '%'}}
+                                            labelPosition='right'
+                                            placeholder='Enter Humidity'
+                                            value = {this.state.humidity}
+                                            onChange = {e => this.setState({humidity: e.target.value})}
+                                            />
+                                     </Form.Field>
+                                </Form>
+
+                                <div class = "ui divider" />
+
+                                <Button
+                                    color = "linkedin"
+                                    onClick = {() => this.submitSettings(res.settings_id, index)}
+                                >
+                                <Icon name = "sync" />
+                                Submit
+                                </Button>
+
+                                <Button
+                                    negative
+                                    onClick = {() => this.deleteSetting(res.settings_id, index)}
+                                >
+                                <Icon name = "trash alternate" />
+                                Delete Settings
+                                </Button>
+
+                                {this.state.edited
+                                ?
+                                <Message positive icon >
+                                <Icon name = "paper plane" />
+                                <p style = {{fontWeight: 'bold', fontSize: '1.5em'}}>
+                                Settings Updated! Close the box to proceed!
+                                </p>
+                                </Message>
+                                : ""}
+
+                                {this.state.deleted
+                                ?
+                                <Message negative icon >
+                                <Icon name = "times circle" />
+                                <p style = {{fontWeight: 'bold', fontSize: '1.5em'}}>
+                                Settings Deleted! Close the box to proceed!
+                                </p>
+                                </Message>
+                                : ""}
+                            </Modal.Content>
+                            </Modal>
+
                         </Card.Content>
                      </Card>
                 )})}
