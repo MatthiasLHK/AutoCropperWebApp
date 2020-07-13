@@ -1,5 +1,5 @@
 import React, { component } from "react";
-import { Dropdown, Header, Modal, Icon, Label, Image, Card, Button, Input } from "semantic-ui-react";
+import { Message, List, Dropdown, Header, Modal, Icon, Label, Image, Card, Button, Input } from "semantic-ui-react";
 import axios from "axios";
 
 class Devices extends React.Component {
@@ -8,9 +8,12 @@ class Devices extends React.Component {
         super(props);
         this.state = {
             addingDevice: false,
-            device_id: null,
+            device_id: '',
             devices: [],
-            settings: []
+            settings: [],
+            value: null, // currently selected setting in dropdown
+            addedDevice: false,
+            uploadedSettings: false
         }
     }
 
@@ -19,6 +22,7 @@ class Devices extends React.Component {
             device_id: e.target.value
         })
     }
+
 
     submitDevice = () => {
         const url = '/register-new-device/' + this.props.match.params.id;
@@ -29,6 +33,21 @@ class Devices extends React.Component {
                 console.log(res)
             })
 
+        const newDevice = {
+            device_id: this.state.device_id,
+            temperature: 0,
+            water: 0,
+            light: 0,
+            humidity: 0,
+            edited_on: null,
+            setting_name: null
+        }
+
+        this.setState({
+            addedDevice: true,
+            device_id: '',
+            devices: this.state.devices.concat(newDevice)
+        })
     }
 
     componentDidMount = () => {
@@ -57,17 +76,65 @@ class Devices extends React.Component {
         axios.get(setting_url)
             .then(res => {
                 for (let i = 0; i < res.data.length; i++) {
+                    const num = i + 1;
+                    const result = {
+                        key: "Setting " + num,
+                        text: res.data[i].setting_name,
+                        value: null
+                    }
+                    const setting = res.data[i];
+                    result.value = setting;
                     this.setState({
-                        settings: this.state.settings.concat(res.data[i])
+                        settings: this.state.settings.concat(result)
                     })
                 }
             })
             .catch(err => console.log(err))
     }
 
+    handleUpload = () => {
+        this.setState({
+            value: null,
+            uploadedSettings: false
+        })
+    }
+
+    selectSettings = (e, { value }) => this.setState({ value });
+
     addDevice = () => {
         this.setState({
-            addingDevice: true
+            addingDevice: true,
+            addedDevice: false
+        })
+    }
+
+    uploadSetting = (device_id, index) => {
+        axios.post('/push-to-device/', {
+            setting_id: this.state.value.settings_id,
+            device_id: device_id
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+
+        const newDevices = [];
+
+        for (let i = 0; i < this.state.devices.length; i++) {
+            if (index !== i) {
+                newDevices.push(this.state.devices[i])
+            } else {
+                const item = this.state.devices[i];
+                item.setting_name = this.state.value.setting_name;
+                item.temperature = this.state.value.temperature;
+                item.water = this.state.value.water;
+                item.light = this.state.value.water;
+                item.humidity = this.state.value.humidity;
+                newDevices.push(item);
+            }
+        }
+
+        this.setState({
+            devices: newDevices,
+            uploadedSettings: true
         })
     }
 
@@ -79,7 +146,7 @@ class Devices extends React.Component {
 
     render() {
         const id = this.props.match.params.id;
-        console.log(this.state.settings)
+        console.log(this.state.devices)
         return (
         <div style = {{ marginTop: 60 }}>
             <Modal
@@ -105,12 +172,23 @@ class Devices extends React.Component {
                         type = 'text'
                         focus
                         placeholder = "Enter Device ID"
+                        value = {this.state.device_id}
                         onChange = { this.handleInput }
                      >
                      <input />
                      <Button color = "primary" onClick = {this.submitDevice} > Submit </Button>
                      </Input>
-
+                {this.state.addedDevice
+                ?
+                <Message positive icon >
+                    <Icon name = "save outline" />
+                    <p style = {{fontWeight: 'bold', fontSize: '1.5em'}}>
+                    Device Successfully Added!
+                    </p>
+                </Message>
+                :
+                <div> </div>
+                }
                 </Modal.Description>
                 </Modal.Content>
 
@@ -127,9 +205,9 @@ class Devices extends React.Component {
                             <Card.Content>
                             <Card.Header> Device {res.device_id} </Card.Header>
                             <div class = "ui divider" />
-                                <Card.Meta> Active since ???? </Card.Meta>
+                                <Card.Meta> {res.setting_name == "null" ? "Active since ---" : "Active since 2020"} </Card.Meta>
                                 <Card.Description>
-                                <h1> {res.setting_name} </h1>
+                                <h1> {res.setting_name == "null" ? "No Settings" : res.setting_name} </h1>
                                 <Label.Group color = 'blue'>
                                     <Label as = "a">
                                         <Icon name = "thermometer" />
@@ -180,18 +258,87 @@ class Devices extends React.Component {
                                 </Button>
                                     }
                                 >
-                                <Header icon = "options" content = "Select Settings" />
+                                <Header icon = "options" content = "Upload Settings" />
                                 <Modal.Content>
-                                <label> Select Setting </label>
+                                <label> Choose the desired settings to be uploaded to the device </label>
                                 <Dropdown
                                     selection
-                                    name = ""
-                                    placeholder = "Select Setting"
+                                    style = {{marginTop: 5}}
+                                    placeholder = "Select Setting Name"
                                     fluid
                                     options = {this.state.settings}
                                     onChange = {this.selectSettings}
                                 />
+                                <div class = "ui hidden divider" />
+                                {this.state.value == null
+                                ?
+                                <div> </div>
+                                :
+                                <Card>
+                                    <Card.Content>
+                                    <Card.Header> {this.state.value.setting_name} </Card.Header>
+                                    <div class = "ui divider" />
+                                    <Card.Meta> Active since 2020 </Card.Meta>
 
+                                    <Card.Description>
+                                    <List style = {{marginBottom: 10}}>
+                                        <List.Item
+                                            as = 'a'
+                                            icon = "thermometer quarter"
+                                            content = {"Temperature: " + this.state.value.temperature + " °C"}
+                                            style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                        />
+
+                                        <List.Item
+                                            as = 'a'
+                                            icon = "tint"
+                                            content = {"Water Content: " + this.state.value.water + " %"}
+                                            style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                        />
+
+                                        <List.Item
+                                            as = 'a'
+                                            icon = "lightbulb"
+                                            content = {"Light Intensity: " + this.state.value.light + " %"}
+                                            style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                        />
+
+                                        <List.Item
+                                            as = 'a'
+                                            icon = "sun"
+                                            content = {"Humidity: " + this.state.value.humidity + " %"}
+                                            style = {{marginLeft: 10, fontSize: "1.2em"}}
+                                        />
+                                    </List>
+                                    </Card.Description>
+                                    </Card.Content>
+                                </Card>
+                                }
+                                <Button
+                                    animated
+                                    color = "green"
+                                    onClick = {() => this.uploadSetting(res.device_id, index)}
+                                >
+                                    <Button.Content visible>
+                                    <Icon name = "share alternate square" />
+                                    Upload Settings
+                                    </Button.Content>
+
+                                    <Button.Content hidden>
+                                    Confirm Upload
+                                    </Button.Content>
+                                 </Button>
+                                 {this.state.uploadedSettings
+                                 ?
+                                 <Message color = "blue" icon >
+                                    <Icon name = "save outline" />
+                                    <p style = {{fontWeight: 'bold', fontSize: '1.5em'}}>
+                                    Settings Successfully Uploaded!
+                                    </p>
+                                 </Message>
+                                 :
+                                 <div></div>
+                                 }
                                 </Modal.Content>
                                 </Modal>
                             </Card.Content>

@@ -464,7 +464,7 @@ class Profile extends React.Component {
                                 <List.Item
                                     as = 'a'
                                     icon = "sun"
-                                    content = {"Humidity: " + res.temperature + " %"}
+                                    content = {"Humidity: " + res.humidity + " %"}
                                     style = {{marginLeft: 10, fontSize: "1.2em"}}
                                 />
                             </List>
