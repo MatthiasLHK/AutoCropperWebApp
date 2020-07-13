@@ -1,5 +1,5 @@
 import React, { component } from "react";
-import { Button, Image, List, Icon, Item, Header, Segment, Message } from "semantic-ui-react";
+import { Modal, Button, Image, List, Icon, Item, Header, Segment, Message } from "semantic-ui-react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -13,8 +13,48 @@ class Welcome extends React.Component {
         }
     }
 
-    componentDidMount = () => {
+    onVote = (settings_id, index, setting) => {
+        axios.put('/upVote', {
+            id: settings_id
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
 
+        const newSetting = [];
+
+        if (setting == "top rated") {
+            console.log("top rated")
+            for (let i = 0; i < 5; i++) {
+                if (i !== index) {
+                    newSetting.push(this.state.topSettings[i])
+                } else {
+                    const item = this.state.topSettings[i];
+                    item.rating++;
+                    newSetting.push(item)
+                }
+            }
+            this.setState({
+                topSettings: newSetting
+            })
+        } else {
+            console.log("newly posted")
+            for (let i = 0; i < 5; i++) {
+                if (i !== index) {
+                    newSetting.push(this.state.newSettings[i])
+                } else {
+                    const item = this.state.newSettings[i];
+                    item.rating++;
+                    newSetting.push(item)
+                }
+            }
+            this.setState({
+                newSettings: newSetting
+            })
+        }
+    }
+
+    componentDidMount = () => {
+        console.log("mounting")
         axios.get("/newly-posted")
             .then(res => {
                 for(let i = 0; i < res.data.length; i++) {
@@ -38,7 +78,8 @@ class Welcome extends React.Component {
     }
 
     render() {
-
+        // console.log(this.state.newSettings)
+        console.log(this.state.topSettings)
         return (
             <div style = {{ marginTop: 90 }}>
 
@@ -58,23 +99,70 @@ class Welcome extends React.Component {
             <Segment attached >
              <Item.Group relaxed >
 
-                {this.state.topSettings.map((res, index) => {
-                    return (
-                        <Item>
+             {this.state.topSettings.map((res, index) => {
+                const rating = res.rating;
+                return (
+                    <Item>
                         <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                            <Item.Content verticalAlign='middle'>
+                        <Item.Content verticalAlign='middle'>
                             <Item.Header> {res.setting_name} </Item.Header>
                             <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
                             <Item.Description>
                                 <List>
-                                    <List.Item icon = "" />
+                                <List.Item
+                                    icon = "thermometer half"
+                                    content = {"Temperature: " + res.temperature + " °C"}
+                                />
+                                <List.Item
+                                    icon = "theme"
+                                    content = {"Water Content: " + res.water + " %"}
+                                />
+                                <List.Item
+                                     icon = "lightbulb outline"
+                                     content = {"Light Intensity: " + res.light + " %"}
+                                 />
+                                <List.Item
+                                    icon = "sun outline"
+                                    content = {"Humidity: " + res.humidity + " %"}
+                                />
                                 </List>
                             </Item.Description>
                             <Item.Extra>
-                              <Button floated='right'>Action</Button>
+
+                            <Modal
+                                closeIcon
+                                trigger = {
+                                    <Button
+                                        floated = "left"
+                                        color = "vk"
+                                        content = "View Comments"
+                                        icon = "folder open outline"
+                                        size = "small"
+                                    />
+                                }
+                            >
+                            <Header icon = "sticky note" content = "View Comments" />
+                            <Modal.Content>
+                            {res.comments}
+                            </Modal.Content>
+                            </Modal>
+
+                              <Button
+                                floated='right'
+                                color = "google plus"
+                                content = "Rating"
+                                icon = "chevron circle up"
+                                onClick = {() => this.onVote(res.settings_id, index, "top rated")}
+                                label = {{
+                                    basic: true,
+                                    color: "google plus",
+                                    pointing: 'left',
+                                    content: rating
+                                }}
+                              />
                             </Item.Extra>
-                            </Item.Content>
-                        </Item>
+                        </Item.Content>
+                    </Item>
                     )
                 })}
 
@@ -97,7 +185,7 @@ class Welcome extends React.Component {
             <Segment attached>
              <Item.Group relaxed>
              {this.state.newSettings.map((res, index) => {
-
+                const rating = res.rating;
                 return (
                     <Item>
                         <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
@@ -108,7 +196,7 @@ class Welcome extends React.Component {
                                 <List>
                                 <List.Item
                                     icon = "thermometer half"
-                                    content = {"Temperature: " + res.temperature + "°C"}
+                                    content = {"Temperature: " + res.temperature + " °C"}
                                 />
                                 <List.Item
                                     icon = "theme"
@@ -125,7 +213,36 @@ class Welcome extends React.Component {
                                 </List>
                             </Item.Description>
                             <Item.Extra>
-                              <Button floated='right'>Action</Button>
+                            <Modal
+                                closeIcon
+                                trigger = {
+                                    <Button
+                                        floated = "left"
+                                        color = "vk"
+                                        content = "View Comments"
+                                        icon = "folder open outline"
+                                        size = "small"
+                                    />
+                                }
+                            >
+                            <Header icon = "sticky note" content = "View Comments" />
+                            <Modal.Content>
+                            {res.comments}
+                            </Modal.Content>
+                            </Modal>
+                            <Button
+                                floated='right'
+                                color = "google plus"
+                                content = "Rating"
+                                icon = "chevron circle up"
+                                onClick = {() => this.onVote(res.settings_id, index, "newly posted")}
+                                label = {{
+                                    basic: true,
+                                    color: "google plus",
+                                    pointing: 'left',
+                                    content: rating
+                                }}
+                              />
                             </Item.Extra>
                         </Item.Content>
                     </Item>
