@@ -23,7 +23,6 @@ class Welcome extends React.Component {
         const newSetting = [];
 
         if (setting == "top rated") {
-            console.log("top rated")
             for (let i = 0; i < 5; i++) {
                 if (i !== index) {
                     newSetting.push(this.state.topSettings[i])
@@ -37,7 +36,6 @@ class Welcome extends React.Component {
                 topSettings: newSetting
             })
         } else {
-            console.log("newly posted")
             for (let i = 0; i < 5; i++) {
                 if (i !== index) {
                     newSetting.push(this.state.newSettings[i])

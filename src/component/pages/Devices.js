@@ -40,7 +40,7 @@ class Devices extends React.Component {
             light: 0,
             humidity: 0,
             edited_on: null,
-            setting_name: null
+            setting_name: 'null'
         }
 
         this.setState({
