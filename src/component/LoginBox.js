@@ -45,16 +45,6 @@ class LoginBox extends React.Component {
         <div className="header" >
           Login
         </div>
-        {this.props.successfulRegister
-            ?
-            <div style = {{ marginLeft: 27 }}>
-                <Button color = "green" >
-                    Successfully Registered!
-                </Button>
-            </div>
-            :
-            <div></div>
-        }
 
         <div className="box">
 

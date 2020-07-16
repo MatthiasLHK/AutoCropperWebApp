@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import LoginBox from "../LoginBox";
 import RegisterBox from "../RegisterBox";
+import { Image, Message, Grid } from "semantic-ui-react";
+import logo from "../../autocropper_logo.png";
 
 class Login extends React.Component {
 
@@ -32,7 +34,29 @@ class Login extends React.Component {
     render() {
 
         return (
+            <div>
+            <Grid columns = {2} >
+            <Grid.Column width = {7} >
+            <Image src = {logo}
+                size = "small"
+                centered
+                rounded
+                style = {{marginLeft: 300, marginTop: 120}}
+                />
+            </Grid.Column>
+
+            <Grid.Column width = {8} >
             <div className = "root-container">
+                {this.state.successfulRegister && this.state.isLoginOpen
+                    ?
+                    <Message
+                        warning
+                        header = "Successfully Registered!"
+                        content = "Please complete the registration process by clicking on the link sent to your registered email account"
+                    />
+                    :
+                    <div></div>
+                    }
                 <h1> Welcome to AutoCropper! </h1>
                 <div className="box-controller">
                        <div
@@ -70,6 +94,9 @@ class Login extends React.Component {
                     />}
 
                 </div>
+            </div>
+            </Grid.Column>
+            </Grid>
             </div>
         );
     }

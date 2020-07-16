@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Image, Header, Segment, Step, Icon } from "semantic-ui-react";
+import logo from "../../autocropper_logo.png";
 
 class About extends React.Component {
 
@@ -14,8 +15,8 @@ class About extends React.Component {
     return (
 
     <div>
-    <Image src = "https://react.semantic-ui.com/images/avatar/small/ade.jpg"
-        size = "tiny"
+    <Image src = {logo}
+        size = "small"
         centered
         rounded
         style = {{ marginTop: 60 }}
