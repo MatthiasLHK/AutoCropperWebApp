@@ -81,16 +81,16 @@ class SetDataForm extends React.Component {
             <Grid.Column>
 
             <Message info compact style = {{ marginTop: 70, marginLeft: 30}}>
-            <Message.Header> Connect to your AutoCropper Device! </Message.Header>
-            <p style = {{ marginLeft: 30 }}> Input the desired conditions below! </p>
+            <Message.Header> Create a new Setting! </Message.Header>
+            <p style = {{ marginLeft: 10 }}> Input the desired conditions below! </p>
             </Message>
 
             <Form>
                 <Form.Field>
-                    <label style ={{marginTop: 10, marginLeft: 40, fontSize: 21}}> Plant </label>
+                    <label style ={{marginTop: 10, marginLeft: 40, fontSize: 21}}> Setting </label>
                     <Icon name = "leaf" size= "big" style = {{marginLeft: 33}}/>
-                    <Input style = {{width: 130, fontSize: 12}}
-                        placeholder= 'Enter Plant Name'
+                    <Input style = {{width: 150, fontSize: 12}}
+                        placeholder= 'Enter Settings Name'
                         value = {this.state.plant}
                         onChange = {e => this.setState({plant: e.target.value})}
                     />
@@ -164,16 +164,16 @@ class SetDataForm extends React.Component {
 
             <Grid.Column style = {{ marginTop: 70 }}>
                 <Message compact warning style = {{ marginLeft: 80 }}>
-                <Message.Header> How to use the AutoCropper Device? </Message.Header>
-                <p style = {{ marginLeft: 45 }}> Follow the instructions below! </p>
+                <Message.Header> How to create a new Setting? </Message.Header>
+                <p style = {{ marginLeft: 15 }}> Follow the instructions below! </p>
                 </Message>
 
                 <Step.Group vertical style = {{ marginLeft: 50 }}>
                     <Step>
                     <Icon name = "edit outline" />
                     <Step.Content>
-                        <Step.Title> Plant </Step.Title>
-                        <Step.Description> Enter the name of your crop </Step.Description>
+                        <Step.Title> Setting Name </Step.Title>
+                        <Step.Description> Enter the name of your new setting </Step.Description>
                     </Step.Content>
                     </Step>
 
@@ -181,7 +181,7 @@ class SetDataForm extends React.Component {
                     <Icon name = "table" />
                     <Step.Content>
                         <Step.Title> Environmental Conditions </Step.Title>
-                        <Step.Description> Enter the conditions desired </Step.Description>
+                        <Step.Description> Enter the desired environmental conditions </Step.Description>
                     </Step.Content>
                     </Step>
 
@@ -189,7 +189,7 @@ class SetDataForm extends React.Component {
                     <Icon name = "download" />
                     <Step.Content>
                         <Step.Title> Submit Conditions </Step.Title>
-                        <Step.Description> View the status of the device from your settings </Step.Description>
+                        <Step.Description> View the newly added settings under your profile </Step.Description>
                     </Step.Content>
                     </Step>
                 </Step.Group>

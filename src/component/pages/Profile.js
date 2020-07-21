@@ -423,7 +423,7 @@ class Profile extends React.Component {
                 <div class = "ui hidden divider" > </div>
 
                 <Label as = "a" tag color = "teal" size = "huge" style = {{marginLeft: 60, marginTop: 40}}>
-                    View Past Conditions and Settings
+                    Conditions and Settings
                 </Label>
 
                 <Card.Group style = {{marginTop: 15}}>

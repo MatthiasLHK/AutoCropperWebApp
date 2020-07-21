@@ -76,8 +76,8 @@ class Welcome extends React.Component {
     }
 
     render() {
-        // console.log(this.state.newSettings)
-        console.log(this.state.topSettings)
+    console.log(this.state.newSettings);
+
         return (
             <div style = {{ marginTop: 90 }}>
 
@@ -101,8 +101,7 @@ class Welcome extends React.Component {
                 const rating = res.rating;
                 return (
                     <Item>
-                        <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                        <Item.Content verticalAlign='middle'>
+                        <Item.Content verticalAlign='middle' style = {{marginLeft: 20}}>
                             <Item.Header> {res.setting_name} </Item.Header>
                             <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
                             <Item.Description>
@@ -136,6 +135,7 @@ class Welcome extends React.Component {
                                         content = "View Comments"
                                         icon = "folder open outline"
                                         size = "small"
+                                        style = {{marginTop: 15}}
                                     />
                                 }
                             >

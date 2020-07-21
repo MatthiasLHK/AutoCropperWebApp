@@ -24,6 +24,11 @@ flex-direction: 'row';
     flex-direction: column;
 }
 
+.quote {
+    text-shadow: 10px 2px #bada55;
+    margin-left: 10;
+}
+
 .box-controller {
     margin-top: 20px;
     visibility: visible;

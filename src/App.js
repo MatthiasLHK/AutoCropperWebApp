@@ -25,8 +25,8 @@ import HardwareTest from "./component/pages/HardwareTest";
 
 class App extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             loggedIn: false,
             user_id: 0
@@ -46,6 +46,7 @@ class App extends React.Component {
     }
 
     render() {
+        console.log(this)
         return (
             <div className = "App">
             {!this.state.loggedIn
