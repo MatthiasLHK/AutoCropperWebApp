@@ -2,6 +2,7 @@ import React, { component } from "react";
 import { Modal, Button, Image, List, Icon, Item, Header, Segment, Message } from "semantic-ui-react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import axios from "axios";
+import logo from "../../homepage_logo.png";
 
 class Welcome extends React.Component {
 
@@ -101,6 +102,7 @@ class Welcome extends React.Component {
                 const rating = res.rating;
                 return (
                     <Item>
+                        <Item.Image size='small' src= {logo} />
                         <Item.Content verticalAlign='middle' style = {{marginLeft: 20}}>
                             <Item.Header> {res.setting_name} </Item.Header>
                             <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
@@ -187,7 +189,7 @@ class Welcome extends React.Component {
 
                 return (
                     <Item>
-                        <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+                        <Item.Image size='small' src= {logo} />
                         <Item.Content verticalAlign='middle'>
                             <Item.Header> {res.setting_name} </Item.Header>
                             <Item.Meta style = {{ marginLeft: 5 }}> Conditions </Item.Meta>
