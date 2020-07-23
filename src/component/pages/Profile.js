@@ -271,6 +271,7 @@ class Profile extends React.Component {
     render() {
 
     const id = this.props.match.params.id;
+    console.log(this)
 
     const avatars = [
         {
