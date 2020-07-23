@@ -23,7 +23,7 @@ class Welcome extends React.Component {
         const newSetting = [];
 
         if (setting == "top rated") {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < this.state.topSettings.length; i++) {
                 if (i !== index) {
                     newSetting.push(this.state.topSettings[i])
                 } else {
@@ -35,8 +35,9 @@ class Welcome extends React.Component {
             this.setState({
                 topSettings: newSetting
             })
+
         } else {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < this.state.newSettings.length; i++) {
                 if (i !== index) {
                     newSetting.push(this.state.newSettings[i])
                 } else {
@@ -76,7 +77,6 @@ class Welcome extends React.Component {
     }
 
     render() {
-    console.log(this.state.newSettings);
 
         return (
             <div style = {{ marginTop: 90 }}>
@@ -184,6 +184,7 @@ class Welcome extends React.Component {
              <Item.Group relaxed>
              {this.state.newSettings.map((res, index) => {
                 const rating = res.rating;
+
                 return (
                     <Item>
                         <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
