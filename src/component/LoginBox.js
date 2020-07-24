@@ -25,6 +25,7 @@ class LoginBox extends React.Component {
         password: this.state.password
     })
     .then(res => {
+        console.log(res)
         if (res.data.status === "Success") {
             console.log(res.data.user_id.id);
             this.props.toggleLogIn(res.data.user_id.id);
@@ -40,16 +41,19 @@ class LoginBox extends React.Component {
     }
 
   render() {
+
     return (
       <div className="inner-container">
         <div className="header" >
+          <Label basic color = "black" size = "large">
           Login
+          </Label>
         </div>
 
         <div className="box">
 
           <div className="input-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username" style = {{color: "white"}}>Username</label>
             <input
               type="text"
               name="username"
@@ -62,7 +66,7 @@ class LoginBox extends React.Component {
           </div>
 
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" style = {{color: "white"}}>Password</label>
             <input
               type="password"
               name="password"
@@ -87,7 +91,10 @@ class LoginBox extends React.Component {
             type="button"
             className="login-btn"
             onClick={this
-            .submitLogin}>Login</button>
+            .submitLogin}
+          >
+            Login
+            </button>
         </div>
       </div>
     );

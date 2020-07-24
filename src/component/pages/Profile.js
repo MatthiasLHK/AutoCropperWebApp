@@ -24,7 +24,7 @@ class Profile extends React.Component {
             value: '', // avatar
             location: '',
             company: '',
-            username: null,
+            username: '',
             settings: [],
             comment: '',
             profileUpdated: false,
@@ -253,7 +253,8 @@ class Profile extends React.Component {
         axios.get(this.state.getUserDetails)
             .then(res => {
                 this.setState({
-                    email: res.data[0].email
+                    email: res.data[0].email,
+                    username: res.data[0].username
                 })
             })
 

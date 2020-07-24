@@ -4,6 +4,14 @@ display: 'flex';
 flex-direction: 'row';
 }
 
+.bg {
+  background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).jpg");
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .App-header {
   background-color: #1B4D19;
   min-height: 100vh;
@@ -22,6 +30,7 @@ flex-direction: 'row';
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 25px;
 }
 
 .quote {
@@ -87,6 +96,7 @@ flex-direction: 'row';
     font-family: Ozxgen, sans-serif;
     font-size: 20px;
     border-bottom: 2px solid $blue_theme;
+
 }
 
 .box {
@@ -141,10 +151,11 @@ flex-direction: 'row';
 
 .login-btn {
     padding: 2px 30px;
-     /* background-color: #417cef; */
+    background-color: #417cef;
     border: 0;
     font-size: 18px;
     border-radius: 15px;
+    color: white;
     font-family: Oxygen, sans-serif;
      background-color: rgba(15, 15, 15, 0.03);
     margin-top: 20px;
@@ -156,7 +167,7 @@ flex-direction: 'row';
 .login-btn:hover,
 .login-btn:focus {
     background-color: #417cef;
-    color: white;
+    color: black;
 }
 
 .danger-error {

@@ -47,12 +47,14 @@ class RegisterBox extends React.Component {
       <div className="inner-container">
 
         <div className="header">
-          Register
+            <Label basic color = "black" size = "large">
+            Register
+            </Label>
         </div>
         <div className="box">
 
           <div className="input-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username" style = {{color: 'white'}}>Username</label>
             <input
               type="text"
               name="username"
@@ -73,14 +75,14 @@ class RegisterBox extends React.Component {
             <div> </div>
             }
           <div className="input-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" style = {{color: 'white'}}>Email</label>
             <input type="text" name="email" className="login-input" placeholder="Email" value = {this.state.email}
                 onChange = {e => this.setState({email: e.target.value})}
                 />
           </div>
 
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" style = {{color: 'white'}}>Password</label>
             <input
               type="password"
               name="password"

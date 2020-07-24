@@ -80,7 +80,7 @@ class Welcome extends React.Component {
     render() {
 
         return (
-            <div style = {{ marginTop: 90 }}>
+            <div className = "bg" style = {{ marginTop: 90 }}>
 
             <Header
                 as = "h3"
@@ -151,7 +151,7 @@ class Welcome extends React.Component {
                                 floated='right'
                                 color = "google plus"
                                 content = "Rating"
-                                icon = "chevron circle up"
+                                icon = "like"
                                 onClick = {() => this.onVote(res.settings_id, index, "top rated")}
                                 label = {{
                                     basic: true,
@@ -235,7 +235,7 @@ class Welcome extends React.Component {
                                 floated='right'
                                 color = "google plus"
                                 content = "Rating"
-                                icon = "chevron circle up"
+                                icon = "like"
                                 onClick = {() => this.onVote(res.settings_id, index, "newly posted")}
                                 label = {{
                                     basic: true,

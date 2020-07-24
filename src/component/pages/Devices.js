@@ -25,7 +25,7 @@ class Devices extends React.Component {
 
 
     submitDevice = () => {
-        const url = '/register-new-device/' + this.props.match.params.id;
+        const url = '/profile/register-new-device/' + this.props.match.params.id;
         axios.post(url, {
             device_id: this.state.device_id
         })
@@ -40,7 +40,7 @@ class Devices extends React.Component {
             light: 0,
             humidity: 0,
             edited_on: null,
-            setting_name: 'null'
+            setting_name: 'NULL'
         }
 
         this.setState({
@@ -205,9 +205,9 @@ class Devices extends React.Component {
                             <Card.Content>
                             <Card.Header> Device {res.device_id} </Card.Header>
                             <div class = "ui divider" />
-                                <Card.Meta> {res.setting_name == "null" ? "Active since ---" : "Active since 2020"} </Card.Meta>
+                                <Card.Meta> {res.setting_name == "NULL" ? "Active since ---" : "Active since 2020"} </Card.Meta>
                                 <Card.Description>
-                                <h1> {res.setting_name == "null" ? "No Settings" : res.setting_name} </h1>
+                                <h1> {res.setting_name == "NULL" ? "No Settings" : res.setting_name} </h1>
                                 <Label.Group color = 'blue'>
                                     <Label as = "a">
                                         <Icon name = "thermometer" />

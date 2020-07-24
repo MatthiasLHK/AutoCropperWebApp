@@ -41,15 +41,15 @@ class Login extends React.Component {
                 size = "small"
                 centered
                 rounded
-                style = {{marginLeft: 210, marginTop: 130}}
+                style = {{marginLeft: 210, marginTop: 150}}
                 />
-            <h1 style = {{marginLeft: 70, fontSize: 16, marginTop: 20}}>
+            <h1 style = {{marginLeft: 60, fontSize: 16, marginTop: 20}}>
             <b> “Agriculture is our wisest pursuit, because it will in the end </b>
             </h1>
-            <h1 style = {{marginLeft: 120, fontSize: 16, marginTop: 0}}>
+            <h1 style = {{marginLeft: 107, fontSize: 16, marginTop: 0}}>
                 contribute most to real wealth, good morals & happiness.”
             </h1>
-            <h1 style = {{marginLeft: 300, fontSize: 15, marginTop: 20}}>
+            <h1 style = {{marginLeft: 320, fontSize: 15, marginTop: 20}}>
                 -- Thomas Jefferson
             </h1>
 

@@ -23,7 +23,7 @@ class SetDataForm extends React.Component {
 
     handleOpen = async (e) => {
         e.preventDefault();
-        console.log("success");
+
         this.setState({
             modalOpen: true,
             temperature: '',
