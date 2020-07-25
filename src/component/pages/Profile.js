@@ -35,7 +35,8 @@ class Profile extends React.Component {
             temperature: 0,
             light: 0,
             water: 0,
-            humidity: 0
+            humidity: 0,
+            invalidInput: false
         }
 
         this.handleUpdate = this.handleUpdate.bind(this);
@@ -69,29 +70,36 @@ class Profile extends React.Component {
             humidity: this.state.humidity,
             setting_name: this.state.setting_name
         })
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .then(res => {
+                if (res.data.status == "Failed") {
+                    this.setState({
+                        invalidInput: true
+                    })
+                } else {
+                    const newSetting = [];
 
-        const newSetting = [];
+                    for (let i = 0; i < this.state.settings.length; i++) {
+                        if (index !== i) {
+                            newSetting.push(this.state.settings[i])
+                        } else {
+                            const item = this.state.settings[i];
+                            item.setting_name = this.state.setting_name;
+                            item.temperature = this.state.temperature;
+                            item.water = this.state.water;
+                            item.light = this.state.light;
+                            item.humidity= this.state.humidity;
+                            newSetting.push(item);
+                        }
+                    }
 
-        for (let i = 0; i < this.state.settings.length; i++) {
-            if (index !== i) {
-                newSetting.push(this.state.settings[i])
-            } else {
-                const item = this.state.settings[i];
-                item.setting_name = this.state.setting_name;
-                item.temperature = this.state.temperature;
-                item.water = this.state.water;
-                item.light = this.state.light;
-                item.humidity= this.state.humidity;
-                newSetting.push(item);
-            }
-        }
+                    this.setState({
+                        settings: newSetting,
+                        edited: true,
+                        invalidInput: false
+                    })
+                }
+            })
 
-        this.setState({
-            settings: newSetting,
-            edited: true
-        })
     }
 
     deleteSetting = (id, index) => {
@@ -113,6 +121,7 @@ class Profile extends React.Component {
         this.setState({
             settings: newSetting,
             edited: false,
+            invalidInput: false,
             deleted: true,
             temperature: '',
             setting_name: '',
@@ -573,7 +582,8 @@ class Profile extends React.Component {
                                             light: res.light,
                                             humidity: res.humidity,
                                             edited: false,
-                                            deleted: false
+                                            deleted: false,
+                                            invalidInput: false
                                         })}
                                         size = "mini"
                                         style = {{marginLeft: 5}}
@@ -666,6 +676,17 @@ class Profile extends React.Component {
                                 <Icon name = "trash alternate" />
                                 Delete Settings
                                 </Button>
+
+                                {this.state.invalidInput
+                                ?
+                                <Message negative>
+                                    <Message.Header> Invalid Inputs Registered. </Message.Header>
+                                    <p style = {{fontWeight: 'bold', fontSize: '1em', marginLeft: 75}}>
+                                    Conditions provided must be within the range of 0-100. Please Try Again!
+                                    </p>
+                                </Message>
+                                : ""
+                                }
 
                                 {this.state.edited
                                 ?
