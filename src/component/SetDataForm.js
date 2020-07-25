@@ -14,11 +14,11 @@ class SetDataForm extends React.Component {
             humidity: '',
             plant: '',
             user_id: '',
-            comment:''
+            comment:'',
+            failedModal: false
         }
 
         this.handleOpen = this.handleOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
     }
 
     handleOpen = async (e) => {
@@ -43,28 +43,42 @@ class SetDataForm extends React.Component {
             name: this.state.plant,
             comment: this.state.comment
         })
-        .then(res => { console.log(res) })
+        .then(res =>   {
+            console.log(res)
+            if (res.data.status == "Failed") {
+                this.setState({modalOpen: false, failedModal: true})
+            } else {
+                this.setState({modalOpen: true, failedModal: false})
+            }
+        })
     }
 
-    handleClose = () => this.setState({ modalOpen: false })
+    handleClose = () => {this.setState({modalOpen: false})}
+
+    handleFailedClose = () => {this.setState({failedModal: false})}
 
     render() {
 
         const InputSuccess = () => (
-              <Modal
-                      trigger={<Button
+                <Button
+                    color = 'secondary'
+                    style = {{marginLeft: 60}}
+                    onClick={this.handleOpen}
 
-                      color = 'secondary'
-                      style = {{marginLeft: 60}}
-                      onClick={this.handleOpen}
+                >
+                Start Cropping!
+                </Button>
+        );
 
-                      > Start Cropping! </Button>}
-                      open={this.state.modalOpen}
-                      onClose={this.handleClose}
-                      basic
-                      size='small'
-                    >
-                      <Header icon='browser' content='Inputs Successfully Registered' />
+        return (
+            <div className = "SetDataForm">
+            <Modal
+                open={this.state.modalOpen}
+                onClose={this.handleClose}
+                basic
+                size='small'
+            >
+                <Header icon='browser' content='Inputs Successfully Registered' />
                       <Modal.Content>
                         <h3>Head over to your profile to view the changes!</h3>
                       </Modal.Content>
@@ -73,10 +87,26 @@ class SetDataForm extends React.Component {
                           <Icon name='checkmark' /> Proceed
                         </Button>
                       </Modal.Actions>
-                    </Modal> );
+            </Modal>
 
-        return (
-            <div className = "SetDataForm">
+            <Modal
+                open={this.state.failedModal}
+                onClose={this.handleFailedClose}
+                basic
+                size='small'
+            >
+                <Header icon='browser' style = {{color: "red"}} content='Invalid Inputs Registered' />
+                      <Modal.Content>
+                        <h3>The conditions registered do not meet the requirements</h3>
+                        <h3> Values provided must be within the range of 0 - 100. Please Try Again! </h3>
+                      </Modal.Content>
+                      <Modal.Actions>
+                        <Button color='green' onClick={this.handleFailedClose} inverted>
+                          <Icon name='checkmark' /> Proceed
+                        </Button>
+                      </Modal.Actions>
+            </Modal>
+
             <Grid columns = {2} divided >
             <Grid.Column>
 
