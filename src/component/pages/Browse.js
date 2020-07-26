@@ -271,12 +271,12 @@ class Browse extends React.Component {
                                 trigger = {
                                     <Button basic color = "red" >
                                     <Icon name = "comment" />
-                                    View Comments
+                                    View Description
                                     </Button>
                                     }
                                 closeIcon
                             >
-                            <Header icon = "comments" content = "View Remarks" />
+                            <Header icon = "comments" content = "View Description" />
                             <Modal.Content>
                                 {res.comments}
                             </Modal.Content>

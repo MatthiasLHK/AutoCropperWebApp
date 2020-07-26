@@ -528,12 +528,12 @@ class Profile extends React.Component {
                                 trigger = {
                                     <Button basic color = "red" size = "mini" style = {{marginLeft: 19, marginTop: 10, marginBottom: 10}}>
                                     <Icon name = "comment" />
-                                    View Comments
+                                    View Description
                                     </Button>
                                     }
                                 closeIcon
                             >
-                            <Header icon = "comment outline" content = "View Remarks" />
+                            <Header icon = "comment outline" content = "View Description" />
                             <Modal.Content>
                                 <p> {res.comments} </p>
                             </Modal.Content>
@@ -553,16 +553,16 @@ class Profile extends React.Component {
                                             })}
                                     >
                                     <Icon name = "edit" />
-                                    Edit Comments
+                                    Edit Description
                                     </Button>
                                 }
                             >
-                            <Header icon = "write" content = "Edit Comments" />
+                            <Header icon = "write" content = "Edit Description" />
                             <Modal.Content>
 
                             <Form>
                                 <Form.TextArea
-                                    placeholder = "Update Settings Comments"
+                                    placeholder = "Update Settings Description"
                                     onChange = {this.handleComment}
                                     value = {this.state.comment}
                                 />

@@ -135,7 +135,7 @@ class Welcome extends React.Component {
                                     <Button
                                         floated = "left"
                                         color = "vk"
-                                        content = "View Comments"
+                                        content = "View Description"
                                         icon = "folder open outline"
                                         size = "small"
                                         style = {{marginTop: 15}}
@@ -221,7 +221,7 @@ class Welcome extends React.Component {
                                     <Button
                                         floated = "left"
                                         color = "vk"
-                                        content = "View Comments"
+                                        content = "View Description"
                                         icon = "folder open outline"
                                         size = "small"
                                     />

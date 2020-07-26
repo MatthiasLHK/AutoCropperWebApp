@@ -177,9 +177,9 @@ class SetDataForm extends React.Component {
                  </Form.Field>
 
                 <Form.Field>
-                    <label style = {{fontSize: 18, marginLeft: 40, marginTop: 20}}> Comments </label>
+                    <label style = {{fontSize: 18, marginLeft: 40, marginTop: 20}}> Description </label>
                     <Form.TextArea
-                        placeholder = "Add Comments"
+                        placeholder = "Add Description"
                         onChange = {e => this.setState({comment: e.target.value})}
                         value = {this.state.comment}
                         width = {10}
