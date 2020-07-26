@@ -19,47 +19,49 @@ class RegisterBox extends React.Component {
 
   submitRegister = async (e) => {
         e.preventDefault();
-        axios.post("/register", {
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email
-        })
-        .then(res => {
-            if (res.data.status === "Success") {
-                console.log(res);
-                this.props.successfulRegister();
-            } else if (res.data.status === "Password failed") {
-                this.setState({
-                    username: '',
-                    password: '',
-                    email: '',
-                    length: 'failed',
-                    register: '',
-                    sameEmail: ''
-                });
-            } else {
-                if (res.data.status === "Email failed") {
+        if (this.state.username !== '' && this.state.email !== '' && this.state.password !== '') {
+            axios.post("/register", {
+                username: this.state.username,
+                password: this.state.password,
+                email: this.state.email
+            })
+            .then(res => {
+                if (res.data.status === "Success") {
+                    console.log(res);
+                    this.props.successfulRegister();
+                } else if (res.data.status === "Password failed") {
                     this.setState({
                         username: '',
                         password: '',
                         email: '',
-                        sameEmail: 'failed',
+                        length: 'failed',
                         register: '',
-                        length: ''
+                        sameEmail: ''
                     });
                 } else {
-                    this.setState({
-                      username: '',
-                      password: '',
-                      email: '',
-                      register: 'failed',
-                      length: '',
-                      sameEmail: ''
-                    });
+                    if (res.data.status === "Email failed") {
+                        this.setState({
+                            username: '',
+                            password: '',
+                            email: '',
+                            sameEmail: 'failed',
+                            register: '',
+                            length: ''
+                        });
+                    } else {
+                        this.setState({
+                          username: '',
+                          password: '',
+                          email: '',
+                          register: 'failed',
+                          length: '',
+                          sameEmail: ''
+                        });
+                    }
+                    console.log(res.data)
                 }
-                console.log(res.data)
-            }
-        })
+            })
+        } else {}
   }
 
 

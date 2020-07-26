@@ -289,13 +289,13 @@ class Browse extends React.Component {
             </div>
             }
 
-
-
+            </div>
+            /**
             <Label as = "a" tag color = "teal" style = {{marginLeft: 20}}>
             Search by Settings Name
             </Label>
+            **/
 
-            </div>
         )
     }
 }
