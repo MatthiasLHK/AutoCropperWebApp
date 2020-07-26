@@ -25,7 +25,6 @@ class SetDataForm extends React.Component {
         e.preventDefault();
 
         this.setState({
-            modalOpen: true,
             temperature: '',
             water: '',
             light: '',

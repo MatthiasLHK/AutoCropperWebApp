@@ -60,6 +60,8 @@ class Profile extends React.Component {
         });
     }
 
+    handleDeleted = () => {this.setState({deleted: false})}
+
     submitSettings = (id, index) => {
 
         axios.put('/edit-settings/', {
@@ -73,7 +75,8 @@ class Profile extends React.Component {
             .then(res => {
                 if (res.data.status == "Failed") {
                     this.setState({
-                        invalidInput: true
+                        invalidInput: true,
+                        edited: false
                     })
                 } else {
                     const newSetting = [];
@@ -320,6 +323,30 @@ class Profile extends React.Component {
             value: 'https://react.semantic-ui.com/images/avatar/large/helen.jpg',
             image: {avatar: true, src: 'https://react.semantic-ui.com/images/avatar/small/helen.jpg'},
         },
+        {
+            key: "Guy 4",
+            text: "Option 7",
+            value: 'https://react.semantic-ui.com/images/avatar/large/matt.jpg',
+            image: {avatar: true, src: 'https://react.semantic-ui.com/images/avatar/small/matt.jpg'},
+        },
+        {
+            key: "Girl 4",
+            text: "Option 8",
+            value: 'https://react.semantic-ui.com/images/avatar/large/stevie.jpg',
+            image: {avatar: true, src: 'https://react.semantic-ui.com/images/avatar/small/stevie.jpg'},
+        },
+        {
+            key: "Guy 5",
+            text: "Option 9",
+            value: 'https://react.semantic-ui.com/images/avatar/large/steve.jpg',
+            image: {avatar: true, src: 'https://react.semantic-ui.com/images/avatar/small/steve.jpg'},
+        },
+        {
+            key: "Guy 6",
+            text: "Option 10",
+            value: 'https://react.semantic-ui.com/images/avatar/large/christian.jpg',
+            image: {avatar: true, src: 'https://react.semantic-ui.com/images/avatar/small/christian.jpg'},
+        }
     ];
 
         return (
@@ -437,6 +464,23 @@ class Profile extends React.Component {
                     Conditions and Settings
                 </Label>
 
+                <Modal
+                    open = {this.state.deleted}
+                    onClose = {this.handleDeleted}
+                    basic
+                    size = 'small'
+                >
+                <Header icon = 'checkmark box' content = "Success" />
+                <Modal.Content>
+                <h3> Your setting has been removed successfully. Close the box to proceed. </h3>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button color='green' onClick={this.handleDeleted} inverted>
+                    <Icon name='checkmark' /> Got it
+                  </Button>
+                </Modal.Actions>
+                </Modal>
+
                 <Card.Group style = {{marginTop: 15}}>
                 {this.state.settings.map((res, index) => {
                     return (
@@ -553,7 +597,7 @@ class Profile extends React.Component {
                                     color = "twitter"
                                     onClick = {() => this.shareSetting(res.settings_id, index)}
                                     size = "mini"
-                                    style = {{marginLeft: 5}}
+                                    style = {{marginLeft: 15}}
                                 >
                                     <Icon name = "share" />
                                     Share Setting
@@ -698,15 +742,7 @@ class Profile extends React.Component {
                                 </Message>
                                 : ""}
 
-                                {this.state.deleted
-                                ?
-                                <Message negative icon >
-                                <Icon name = "times circle" />
-                                <p style = {{fontWeight: 'bold', fontSize: '1.5em'}}>
-                                Settings Deleted! Close the box to proceed!
-                                </p>
-                                </Message>
-                                : ""}
+
                             </Modal.Content>
                             </Modal>
 

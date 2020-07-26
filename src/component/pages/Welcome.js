@@ -99,6 +99,7 @@ class Welcome extends React.Component {
              <Item.Group relaxed >
 
              {this.state.topSettings.map((res, index) => {
+
                 const rating = res.rating;
                 return (
                     <Item>

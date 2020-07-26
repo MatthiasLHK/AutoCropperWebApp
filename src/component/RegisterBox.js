@@ -11,7 +11,9 @@ class RegisterBox extends React.Component {
         username: '',
         password: '',
         email: '',
-        register: ''
+        register: '',
+        sameEmail: '',
+        length: ''
     };
   }
 
@@ -26,14 +28,35 @@ class RegisterBox extends React.Component {
             if (res.data.status === "Success") {
                 console.log(res);
                 this.props.successfulRegister();
-            } else {
+            } else if (res.data.status === "Password failed") {
                 this.setState({
                     username: '',
                     password: '',
                     email: '',
-                    register: 'failed'
+                    length: 'failed',
+                    register: '',
+                    sameEmail: ''
                 });
-
+            } else {
+                if (res.data.status === "Email failed") {
+                    this.setState({
+                        username: '',
+                        password: '',
+                        email: '',
+                        sameEmail: 'failed',
+                        register: '',
+                        length: ''
+                    });
+                } else {
+                    this.setState({
+                      username: '',
+                      password: '',
+                      email: '',
+                      register: 'failed',
+                      length: '',
+                      sameEmail: ''
+                    });
+                }
                 console.log(res.data)
             }
         })
@@ -80,6 +103,16 @@ class RegisterBox extends React.Component {
                 onChange = {e => this.setState({email: e.target.value})}
                 />
           </div>
+            {this.state.sameEmail === "failed"
+              ?
+              <div>
+              <Label basic color = "red" pointing>
+              Email Taken. Please try again!
+              </Label>
+              </div>
+              :
+              <div> </div>
+            }
 
           <div className="input-group">
             <label htmlFor="password" style = {{color: 'white'}}>Password</label>
@@ -92,6 +125,16 @@ class RegisterBox extends React.Component {
               value = {this.state.password}
               />
           </div>
+            {this.state.length === "failed"
+              ?
+              <div>
+              <Label basic color = "red" pointing>
+              Password must be at least 10 characters long. Please try again!
+              </Label>
+              </div>
+              :
+              <div> </div>
+            }
           <button
             type="button"
             className="login-btn"

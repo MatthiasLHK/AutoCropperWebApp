@@ -13,7 +13,8 @@ class Devices extends React.Component {
             settings: [],
             value: null, // currently selected setting in dropdown
             addedDevice: false,
-            uploadedSettings: false
+            uploadedSettings: false,
+            deleted: false
         }
     }
 
@@ -23,9 +24,8 @@ class Devices extends React.Component {
         })
     }
 
-
     submitDevice = () => {
-        const url = '/profile/register-new-device/' + this.props.match.params.id;
+        const url = '/register-new-device/' + this.props.match.params.id;
         axios.post(url, {
             device_id: this.state.device_id
         })
@@ -92,6 +92,13 @@ class Devices extends React.Component {
             .catch(err => console.log(err))
     }
 
+    openDeleted = () => {
+        this.setState({
+            deleted: false
+        })
+
+    }
+
     handleUpload = () => {
         this.setState({
             value: null,
@@ -107,6 +114,30 @@ class Devices extends React.Component {
             addedDevice: false
         })
     }
+
+    removeDevice = (id, index) => {
+        axios.post('/devices/remove', {
+            device_id: id
+        })
+        .then(res => console.log(res))
+
+        const newDevices = [];
+
+        for (let i = 0; i < this.state.devices.length; i++) {
+            if (index !== i) {
+                newDevices.push(this.state.devices[i])
+            } else {
+            }
+        }
+
+        this.setState({
+            devices: newDevices,
+            deleted: true
+        })
+
+    }
+
+    handleDeleted = () => {this.setState({deleted: false})}
 
     uploadSetting = (device_id, index) => {
         axios.post('/push-to-device/', {
@@ -145,10 +176,29 @@ class Devices extends React.Component {
     }
 
     render() {
+
         const id = this.props.match.params.id;
-        console.log(this.state.devices)
+        console.log(this.state.deleted)
         return (
         <div style = {{ marginTop: 60 }}>
+
+                <Modal
+                    open = {this.state.deleted}
+                    onClose = {this.handleDeleted}
+                    basic
+                    size = 'small'
+                >
+                <Header icon = 'checkmark box' content = "Success" />
+                <Modal.Content>
+                <h3> Your device has been removed successfully. Close the box to proceed. </h3>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button color='green' onClick={this.handleDeleted} inverted>
+                    <Icon name='checkmark' /> Got it
+                  </Button>
+                </Modal.Actions>
+                </Modal>
+
             <Modal
                     closeIcon
                     trigger= {
@@ -339,6 +389,48 @@ class Devices extends React.Component {
                                  :
                                  <div></div>
                                  }
+                                </Modal.Content>
+                                </Modal>
+
+                                <div class = "ui hidden divider" />
+
+                                <Modal
+                                    closeIcon
+                                    trigger = {
+                                        <Button
+                                            color = "red"
+                                            size = "small"
+                                            onClick = {this.openDeleted}
+                                            style = {{marginLeft: 55}}
+                                        >
+                                        <Icon name = "delete" />
+                                        Remove Device
+                                        </Button>
+                                    }
+
+                                >
+                                <Modal.Header> Delete Device </Modal.Header>
+                                <Modal.Content>
+                                <Modal.Description>
+                                Are you sure you wish to remove this device?
+                                <div class = "ui hidden divider" />
+                                {!this.state.deleted
+                                ?
+                                <Button
+                                    color = "green"
+                                    onClick = {() => this.removeDevice(res.device_id, index)}
+                                >
+                                Confirm
+                                </Button>
+                                :
+                                <Message info>
+                                <Icon name = "eraser" />
+                                <p style = {{fontWeight: 'bold', fontSize: '1.5em'}}>
+                                Device Removed! Close the box to proceed!
+                                </p>
+                                </Message>
+                                }
+                                </Modal.Description>
                                 </Modal.Content>
                                 </Modal>
                             </Card.Content>

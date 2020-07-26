@@ -48,74 +48,86 @@ class Browse extends React.Component {
             settings: []
         })
 
-        axios.get(this.state.user1)
-            .then(res => {
+        if (this.state.user1 !== "") {
 
-                if (res.data == "failed") {
-                    this.setState({
-                        browsing: true
-                    })
-                } else {
-                    for (let i = 0; i < res.data.length; i++) {
-                        this.setState({
-                            browsing: false,
-                            settings: this.state.settings.concat(res.data[i])
-                        })
-                    }
-                }
-            })
+                    axios.get(this.state.user1)
+                          .then(res => {
 
-        axios.get(this.state.user2)
-            .then(res => {
+                              if (res.data == "failed") {
+                                  this.setState({
+                                      browsing: true
+                                  })
+                              } else {
+                                  for (let i = 0; i < res.data.length; i++) {
+                                      this.setState({
+                                          browsing: false,
+                                          settings: this.state.settings.concat(res.data[i])
+                                      })
+                                  }
+                              }
+                          })
 
-                if (res.data == "failed") {
-                    this.setState({
-                        browsing: true
-                    })
-                } else if (res.data.length == 0) {
-                    this.setState({
-                        name: '',
-                        bio: '',
-                        avatar: '',
-                        location: '',
-                        company: ''
-                    })
-                } else {
-                    this.setState({
-                        name: res.data[0].name,
-                        bio: res.data[0].user_bio,
-                        avatar: res.data[0].picture_url,
-                        location: res.data[0].location,
-                        company: res.data[0].company
-                    })
-                }
-            })
+                      axios.get(this.state.user2)
+                          .then(res => {
 
-        axios.get(this.state.user3)
-            .then(res => {
-                if (res.data == "failed") {
-                    this.setState({
-                        browsing: true,
-                        modalOpen: true
-                    })
-                } else {
-                    this.setState({
-                        browsing: false,
-                        email: res.data[0].email,
-                        username: res.data[0].username
-                    })
-                }
-            })
+                              if (res.data == "failed") {
+                                  this.setState({
+                                      browsing: true
+                                  })
+                              } else if (res.data.length == 0) {
+                                  this.setState({
+                                      name: '',
+                                      bio: '',
+                                      avatar: '',
+                                      location: '',
+                                      company: ''
+                                  })
+                              } else {
+                                  this.setState({
+                                      name: res.data[0].name,
+                                      bio: res.data[0].user_bio,
+                                      avatar: res.data[0].picture_url,
+                                      location: res.data[0].location,
+                                      company: res.data[0].company
+                                  })
+                              }
+                          })
+
+                      axios.get(this.state.user3)
+                          .then(res => {
+                              if (res.data == "failed") {
+                                  this.setState({
+                                      browsing: true,
+                                      modalOpen: true
+                                  })
+                              } else {
+                                  this.setState({
+                                      browsing: false,
+                                      email: res.data[0].email,
+                                      username: res.data[0].username
+                                  })
+                              }
+                          })
+
+        } else {
+            console.log("no search")
+        }
+
     }
 
     render() {
-        console.log(this.state.settings)
+
         return (
 
             <div style = {{ marginTop: 60 }} >
+
+            <Label as = 'a' tag color = "teal" style = {{marginLeft: 20}}>
+                Search by Username
+            </Label>
+
             {this.state.browsing
             ?
-            <div>
+            <div style = {{marginTop: 15}}>
                 <Message info compact floating style = {{ marginLeft: 20 }} >
                 <Message.Header> Browse other user profiles and settings! </Message.Header>
                 <p style = {{marginLeft: 5}}> Search Below! </p>
@@ -154,7 +166,7 @@ class Browse extends React.Component {
                 <div class = "ui divider" />
             </div>
             :
-            <div>
+            <div style = {{marginTop: 15}}>
 
                 <Message info compact floating style = {{ marginLeft: 20 }} >
                 <Message.Header> Browse other user profiles and settings! </Message.Header>
@@ -276,6 +288,13 @@ class Browse extends React.Component {
 
             </div>
             }
+
+
+
+            <Label as = "a" tag color = "teal" style = {{marginLeft: 20}}>
+            Search by Settings Name
+            </Label>
+
             </div>
         )
     }
