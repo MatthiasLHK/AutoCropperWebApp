@@ -13,7 +13,8 @@ class RegisterBox extends React.Component {
         email: '',
         register: '',
         sameEmail: '',
-        length: ''
+        length: '',
+        empty: false
     };
   }
 
@@ -61,7 +62,9 @@ class RegisterBox extends React.Component {
                     console.log(res.data)
                 }
             })
-        } else {}
+        } else {
+            this.setState({empty: true})
+        }
   }
 
 
@@ -77,7 +80,16 @@ class RegisterBox extends React.Component {
             </Label>
         </div>
         <div className="box">
-
+            {this.state.empty
+            ?
+            <div>
+            <Label basic color = "red" pointing = "below">
+            Please enter a value for the field!
+            </Label>
+            </div>
+            :
+            <div></div>
+            }
           <div className="input-group">
             <label htmlFor="username" style = {{color: 'white'}}>Username</label>
             <input

@@ -12,7 +12,8 @@ class LoginBox extends React.Component {
         username: '',
         password: '',
         login: '',
-        id: 0
+        id: 0,
+        empty: false
     };
   }
 
@@ -39,7 +40,9 @@ class LoginBox extends React.Component {
 
                 }
                 })
-            } else {}
+            } else {
+                this.setState({empty: true})
+            }
     }
 
   render() {
@@ -53,7 +56,16 @@ class LoginBox extends React.Component {
         </div>
 
         <div className="box">
-
+            {this.state.empty
+            ?
+            <div>
+            <Label basic color = "red" pointing = "below">
+            Please enter a value for the field!
+            </Label>
+            </div>
+            :
+            <div></div>
+            }
           <div className="input-group">
             <label htmlFor="username" style = {{color: "white"}}>Username</label>
             <input
