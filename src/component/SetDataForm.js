@@ -57,7 +57,6 @@ class SetDataForm extends React.Component {
     handleFailedClose = () => {this.setState({failedModal: false})}
 
     render() {
-
         const InputSuccess = () => (
                 <Button
                     color = 'secondary'
