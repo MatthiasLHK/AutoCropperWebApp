@@ -59,7 +59,7 @@ class SetDataForm extends React.Component {
     render() {
         const InputSuccess = () => (
                 <Button
-                    color = 'secondary'
+                    color = 'primary'
                     style = {{marginLeft: 60}}
                     onClick={this.handleOpen}
 
